@@ -1,0 +1,340 @@
+
+//SCORE EXAMPLES
+
+
+
+/*
+ ** getNotification**;
+ ** method lets you pull your game's in game notifications.	*/
+
+
+[Thumbr getNotification];
+
+
+
+/*
+ ** getGameTotal**;
+ ** gets the total for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.	*/
+
+scoreParams=[NSMutableDictionary new];
+NSString *field = @""; //REQUIRED: String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+
+[Thumbr getGameTotal:field :scoreParams];
+
+
+
+/*
+ ** getGameLowest**;
+ ** gets the lowest vaule for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.	*/
+
+scoreParams=[NSMutableDictionary new];
+NSString *field = @""; //REQUIRED: String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+
+[Thumbr getGameLowest:field :scoreParams];
+
+
+
+/*
+ ** getGameTop**;
+ ** gets the top value for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.	*/
+
+scoreParams=[NSMutableDictionary new];
+NSString *field = @""; //REQUIRED: String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+
+[Thumbr getGameTop:field :scoreParams];
+
+
+
+/*
+ ** getGameAverage**;
+ ** gets the average for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.	*/
+
+scoreParams=[NSMutableDictionary new];
+NSString *field = @""; //REQUIRED: String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+
+[Thumbr getGameAverage:field :scoreParams];
+
+
+
+/*
+ ** getPlayers**;
+ ** API method lets you get all the players for a specif game.getGameField	*/
+
+scoreParams=[NSMutableDictionary new];
+[scoreParams setObject:@"" forKey:@"order_by"]; //OPTIONAL:  String Value, (date or score)
+[scoreParams setObject:@"" forKey:@"order"]; //OPTIONAL:  String Value, asc or desc
+[scoreParams setObject:@"" forKey:@"limit"]; //OPTIONAL:  Number Value, the limit, "20" retrieves rows 1 - 20 | "10,20" retrieves 20 scores starting from the 10th
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  String Value, needs to match the string value that was used when creating the player
+
+[Thumbr getPlayers:scoreParams];
+
+
+
+/*
+ ** getGameField**;
+ ** method lets you pull a specific field from your game info.	*/
+
+scoreParams=[NSMutableDictionary new];
+[scoreParams setObject:@"" forKey:@"field"]; //OPTIONAL:  name,short_description,description,game_type,version,levels,platform,play_url,website_url,created,updated,player_count,scores_count,locked,status,
+
+[Thumbr getGameField:scoreParams];
+
+
+
+/*
+ ** getGame**;
+ ** method lets you pull all your game information.	*/
+
+
+[Thumbr getGame];
+
+
+
+/*
+ ** getPlayerScores**;
+ ** method lets you pull all the scores for a player.	*/
+
+scoreParams=[NSMutableDictionary new];
+NSString *username = @""; //REQUIRED: String Value, the players username
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"difficulty"]; //OPTIONAL:  Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+
+[Thumbr getPlayerScores:username :scoreParams];
+
+
+
+/*
+ ** getPlayer**;
+ ** method Check if player exists and returns the player information. Post parameters work as query conditions. This method can be used for login by adding username and password parameters.	*/
+
+scoreParams=[NSMutableDictionary new];
+[scoreParams setObject:@"" forKey:@"id"]; //OPTIONAL:  The players ID [String]
+NSString *username = @""; //REQUIRED: String Value, the players username
+[scoreParams setObject:@"" forKey:@"password"]; //OPTIONAL:  The players password [String]
+
+[Thumbr getPlayer:username :scoreParams];
+
+
+
+/*
+ ** editPlayer**;
+ ** method lets you edit your player information.	*/
+
+scoreParams=[NSMutableDictionary new];
+NSString *username = @""; //REQUIRED: String Value, the players username
+[scoreParams setObject:@"" forKey:@"password"]; //OPTIONAL:  The players password [String]
+[scoreParams setObject:@"" forKey:@"unique_id"]; //OPTIONAL:  Integer Value,
+[scoreParams setObject:@"" forKey:@"first_name"]; //OPTIONAL:  The players first name [String]
+[scoreParams setObject:@"" forKey:@"last_name"]; //OPTIONAL:  The players last name [String]
+[scoreParams setObject:@"" forKey:@"created"]; //OPTIONAL:  The date the player was created calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
+[scoreParams setObject:@"" forKey:@"updated"]; //OPTIONAL:  The last time the player was updated calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
+[scoreParams setObject:@"" forKey:@"bonus"]; //OPTIONAL:  The players bonus [Integer]
+[scoreParams setObject:@"" forKey:@"achievements"]; //OPTIONAL:  The players achievements [String, comma-separated]
+[scoreParams setObject:@"" forKey:@"best_score"]; //OPTIONAL:  The players best score calculated by Scoreoid [Integer]
+[scoreParams setObject:@"" forKey:@"gold"]; //OPTIONAL:  The players gold [Integer]
+[scoreParams setObject:@"" forKey:@"money"]; //OPTIONAL:  The players money [Integer]
+[scoreParams setObject:@"" forKey:@"kills"]; //OPTIONAL:  The players kills [Integer]
+[scoreParams setObject:@"" forKey:@"lives"]; //OPTIONAL:  The players lives [Integer]
+[scoreParams setObject:@"" forKey:@"time_played"]; //OPTIONAL:  The time the player played [Integer]
+[scoreParams setObject:@"" forKey:@"unlocked_levels"]; //OPTIONAL:  The players unlocked levels [Integer]
+[scoreParams setObject:@"" forKey:@"unlocked_items"]; //OPTIONAL:  The players unlocked items [String, comma-separated]
+[scoreParams setObject:@"" forKey:@"inventory"]; //OPTIONAL:  The players inventory [String, comma-separated]
+[scoreParams setObject:@"" forKey:@"last_level"]; //OPTIONAL:  The players last level [Integer]
+[scoreParams setObject:@"" forKey:@"current_level"]; //OPTIONAL:  The players current level [Integer]
+[scoreParams setObject:@"" forKey:@"current_time"]; //OPTIONAL:  The players current time [Integer]
+[scoreParams setObject:@"" forKey:@"current_bonus"]; //OPTIONAL:  The players current bonus [Integer]
+[scoreParams setObject:@"" forKey:@"current_kills"]; //OPTIONAL:  The players current kills [Integer]
+[scoreParams setObject:@"" forKey:@"current_achievements"]; //OPTIONAL:  The players current achievements [String, comma-separated]
+[scoreParams setObject:@"" forKey:@"current_gold"]; //OPTIONAL:  The players current gold [Integer]
+[scoreParams setObject:@"" forKey:@"current_unlocked_levels"]; //OPTIONAL:  The players current unlocked levels [Integer]
+[scoreParams setObject:@"" forKey:@"current_unlocked_items"]; //OPTIONAL:  The players current unlocked items [String, comma-separated]
+[scoreParams setObject:@"" forKey:@"current_lifes"]; //OPTIONAL:  The players current lifes [Integer]
+[scoreParams setObject:@"" forKey:@"xp"]; //OPTIONAL:  The players XP [Integer]
+[scoreParams setObject:@"" forKey:@"energy"]; //OPTIONAL:  The players energy [Integer]
+[scoreParams setObject:@"" forKey:@"boost"]; //OPTIONAL:  The players energy [Integer]
+[scoreParams setObject:@"" forKey:@"latitude"]; //OPTIONAL:  The players GPS latitude [Integer]
+[scoreParams setObject:@"" forKey:@"longitude"]; //OPTIONAL:  The players GPS longitude [Integer]
+[scoreParams setObject:@"" forKey:@"game_state"]; //OPTIONAL:  The players game state [String]
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+
+[Thumbr editPlayer:username :scoreParams];
+
+
+
+/*
+ ** countPlayers**;
+ ** method lets you count all your players.	*/
+
+scoreParams=[NSMutableDictionary new];
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+
+[Thumbr countPlayers:scoreParams];
+
+
+
+/*
+ ** updatePlayerField**;
+ ** method lets you update your player field's.	*/
+
+scoreParams=[NSMutableDictionary new];
+NSString *username = @""; //REQUIRED: String Value, the players username
+NSString *field = @""; //REQUIRED: password,unique_id,first_name,last_name,created,updated,bonus,achievements,gold,money,kills,lives,time_played,unlocked_levels,unlocked_items,inventory,last_level,current_level,current_time,current_bonus,current_kills,current_achievements,current_gold,current_unlocked_levels,current_unlocked_items,current_lifes,xp,energy,boost,latitude,longitude,game_state,platform,
+NSString *value = @""; //REQUIRED: String Value, the field value
+
+[Thumbr updatePlayerField:username :field :value :scoreParams];
+
+
+
+/*
+ ** createPlayer**;
+ ** method lets you create a player with a number of optional values.	*/
+
+scoreParams=[NSMutableDictionary new];
+NSString *username = @""; //REQUIRED: The players username [String]
+[scoreParams setObject:@"" forKey:@"password"]; //OPTIONAL:  The players password used if you would like to create user log-in [String]
+[scoreParams setObject:@"" forKey:@"score"]; //OPTIONAL:  Integer Value
+[scoreParams setObject:@"" forKey:@"difficulty"]; //OPTIONAL:  Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+[scoreParams setObject:@"" forKey:@"unique_id"]; //OPTIONAL:  Integer Value,
+[scoreParams setObject:@"" forKey:@"first_name"]; //OPTIONAL:  The players first name [String]
+[scoreParams setObject:@"" forKey:@"last_name"]; //OPTIONAL:  The players last name [String]
+[scoreParams setObject:@"" forKey:@"created"]; //OPTIONAL:  The date the player was created calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
+[scoreParams setObject:@"" forKey:@"updated"]; //OPTIONAL:  The last time the player was updated calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
+[scoreParams setObject:@"" forKey:@"bonus"]; //OPTIONAL:  The players bonus [Integer]
+[scoreParams setObject:@"" forKey:@"achievements"]; //OPTIONAL:  The players achievements [String, comma-separated]
+[scoreParams setObject:@"" forKey:@"best_score"]; //OPTIONAL:  The players best score calculated by Scoreoid [Integer]
+[scoreParams setObject:@"" forKey:@"gold"]; //OPTIONAL:  The players gold [Integer]
+[scoreParams setObject:@"" forKey:@"money"]; //OPTIONAL:  The players money [Integer]
+[scoreParams setObject:@"" forKey:@"kills"]; //OPTIONAL:  The players kills [Integer]
+[scoreParams setObject:@"" forKey:@"lives"]; //OPTIONAL:  The players lives [Integer]
+[scoreParams setObject:@"" forKey:@"time_played"]; //OPTIONAL:  The time the player played [Integer]
+[scoreParams setObject:@"" forKey:@"unlocked_levels"]; //OPTIONAL:  The players unlocked levels [Integer]
+[scoreParams setObject:@"" forKey:@"unlocked_items"]; //OPTIONAL:  The players unlocked items [String, comma-separated]
+[scoreParams setObject:@"" forKey:@"inventory"]; //OPTIONAL:  The players inventory [String, comma-separated]
+[scoreParams setObject:@"" forKey:@"last_level"]; //OPTIONAL:  The players last level [Integer]
+[scoreParams setObject:@"" forKey:@"current_level"]; //OPTIONAL:  The players current level [Integer]
+[scoreParams setObject:@"" forKey:@"current_time"]; //OPTIONAL:  The players current time [Integer]
+[scoreParams setObject:@"" forKey:@"current_bonus"]; //OPTIONAL:  The players current bonus [Integer]
+[scoreParams setObject:@"" forKey:@"current_kills"]; //OPTIONAL:  The players current kills [Integer]
+[scoreParams setObject:@"" forKey:@"current_achievements"]; //OPTIONAL:  The players current achievements [String, comma-separated]
+[scoreParams setObject:@"" forKey:@"current_gold"]; //OPTIONAL:  The players current gold [Integer]
+[scoreParams setObject:@"" forKey:@"current_unlocked_levels"]; //OPTIONAL:  The players current unlocked levels [Integer]
+[scoreParams setObject:@"" forKey:@"current_unlocked_items"]; //OPTIONAL:  The players current unlocked items [String, comma-separated]
+[scoreParams setObject:@"" forKey:@"current_lifes"]; //OPTIONAL:  The players current lifes [Integer]
+[scoreParams setObject:@"" forKey:@"xp"]; //OPTIONAL:  The players XP [Integer]
+[scoreParams setObject:@"" forKey:@"energy"]; //OPTIONAL:  The players energy [Integer]
+[scoreParams setObject:@"" forKey:@"boost"]; //OPTIONAL:  The players energy [Integer]
+[scoreParams setObject:@"" forKey:@"latitude"]; //OPTIONAL:  The players GPS latitude [Integer]
+[scoreParams setObject:@"" forKey:@"longitude"]; //OPTIONAL:  The players GPS longitude [Integer]
+[scoreParams setObject:@"" forKey:@"game_state"]; //OPTIONAL:  The players game state [String]
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+
+[Thumbr createPlayer:username :scoreParams];
+
+
+
+/*
+ ** countBestScores**;
+ ** method lets you count all your game best scores.	*/
+
+scoreParams=[NSMutableDictionary new];
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+[scoreParams setObject:@"" forKey:@"difficulty"]; //OPTIONAL:  Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+
+[Thumbr countBestScores:scoreParams];
+
+
+
+/*
+ ** getAverageScore**;
+ ** method lets you get all your game average scores.	*/
+
+scoreParams=[NSMutableDictionary new];
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+[scoreParams setObject:@"" forKey:@"difficulty"]; //OPTIONAL:  Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+
+[Thumbr getAverageScore:scoreParams];
+
+
+
+/*
+ ** getBestScores**;
+ ** method lets you get all your games best scores.	*/
+
+scoreParams=[NSMutableDictionary new];
+[scoreParams setObject:@"" forKey:@"order_by"]; //OPTIONAL:  String Value, (date or score)
+[scoreParams setObject:@"" forKey:@"order"]; //OPTIONAL:  String Value, asc or desc
+[scoreParams setObject:@"" forKey:@"limit"]; //OPTIONAL:  Number Value, the limit, "20" retrieves rows 1 - 20 | "10,20" retrieves 20 scores starting from the 10th
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+[scoreParams setObject:@"" forKey:@"difficulty"]; //OPTIONAL:  Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+
+[Thumbr getBestScores:scoreParams];
+
+
+
+/*
+ ** countScores**;
+ ** method lets you count all your game scores.	*/
+
+scoreParams=[NSMutableDictionary new];
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+[scoreParams setObject:@"" forKey:@"difficulty"]; //OPTIONAL:  Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+
+[Thumbr countScores:scoreParams];
+
+
+
+/*
+ ** getScores**;
+ ** method lets you pull all your game scores.	*/
+
+scoreParams=[NSMutableDictionary new];
+[scoreParams setObject:@"" forKey:@"order_by"]; //OPTIONAL:  String Value, (date or score)
+[scoreParams setObject:@"" forKey:@"order"]; //OPTIONAL:  String Value, asc or desc
+[scoreParams setObject:@"" forKey:@"limit"]; //OPTIONAL:  Number Value, the limit, "20" retrieves rows 1 - 20 | "10,20" retrieves 20 scores starting from the 10th
+[scoreParams setObject:@"" forKey:@"start_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"end_date"]; //OPTIONAL:  String Value, YYY-MM-DD format
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  The players platform needs to match the string value that was used when creating the player
+[scoreParams setObject:@"" forKey:@"difficulty"]; //OPTIONAL:  Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+
+[Thumbr getScores:scoreParams];
+
+
+
+/*
+ ** createScore**;
+ ** method lets you create a user score.	*/
+
+scoreParams=[NSMutableDictionary new];
+NSString *username = @""; //REQUIRED: String Value, if user does not exist it well be created
+NSString *score = @""; //REQUIRED: Integer Value,
+[scoreParams setObject:@"" forKey:@"platform"]; //OPTIONAL:  String Value,
+[scoreParams setObject:@"" forKey:@"unique_id"]; //OPTIONAL:  Integer Value,
+[scoreParams setObject:@"" forKey:@"difficulty"]; //OPTIONAL:  Integer Value, between 1 to 10 (don\t use 0 as it's the default value)
+
+[Thumbr createScore:username :score :scoreParams];
+
