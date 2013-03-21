@@ -73,7 +73,7 @@
 		BB8FAF9D166379B600740205 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BBBD2019169ACE14006B38FB /* background@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x~ipad.png"; sourceTree = "<group>"; };
 		BBD9E7141663BE880096E648 /* AppsFlyer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppsFlyer.h; sourceTree = "<group>"; };
-		BBD9E7161663BE9F0096E648 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppsFlyerLib.a; sourceTree = "<group>"; };
+		BBD9E7161663BE9F0096E648 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = TestSDK/libAppsFlyerLib.a; sourceTree = "<group>"; };
 		BBDF9EDE16B2AA6600BA33B2 /* LRResty.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LRResty.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,7 +103,6 @@
 				B8E189F615988DE1002487B3 /* ViewController.m */,
 				BB7F512C168373CB0080C773 /* ViewController_iPad_landscape.xib */,
 				BB7F512D168373CB0080C773 /* ViewController_iPhone.xib */,
-				BBD9E7161663BE9F0096E648 /* libAppsFlyerLib.a */,
 				BBD9E7141663BE880096E648 /* AppsFlyer.h */,
 			);
 			name = Classes;
@@ -114,8 +113,9 @@
 			children = (
 				BB1F73BA1667AC310006F0B6 /* Thumbr-iPad.bundle */,
 				BB1F73BB1667AC310006F0B6 /* Thumbr-iPhone.bundle */,
-				BB8FAF9D166379B600740205 /* Default-568h@2x.png */,
+				BBD9E7161663BE9F0096E648 /* libAppsFlyerLib.a */,
 				BB0589EA165D1F9400819790 /* Default-Portrait@2x~ipad.png */,
+				BB8FAF9D166379B600740205 /* Default-568h@2x.png */,
 				BB0589E8165D1F9100819790 /* Default-Portrait~ipad.png */,
 				BB0589E6165D1F8D00819790 /* Default-Landscape@2x~ipad.png */,
 				BBBD2019169ACE14006B38FB /* background@2x~ipad.png */,
