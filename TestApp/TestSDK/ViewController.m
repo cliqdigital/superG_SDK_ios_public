@@ -44,15 +44,15 @@
     
 //IMPLEMENTATION EXAMPLE DIRECTLY ON MAIN VIEW (CORNERS ONLY)
 
-    /*    UIButton *thumbrT = [Thumbr loadThumbrT:relativeSize relativeSize:position];
-    	[self.view addSubview:thumbrT];//add the view
-        [self.view bringSubviewToFront:thumbrT];//make sure it is on front
-     */
+    UIButton *thumbrT = [Thumbr loadThumbrT:relativeSize relativeSize:position];
+    [self.view addSubview:thumbrT];//add the view
+    [self.view bringSubviewToFront:thumbrT];//make sure it is on front
+
 
 //IMPLEMENTATION EXAMPLE ON SUBVIEW (MAKE SURE POSITION IS TL)
     //create a sub view in your NIB and add the Thumbr-T-Logo to it
-    UIButton *thumbrT2 = [Thumbr loadThumbrT:relativeSize relativeSize:position];
-    [self.thumbrTView addSubview:thumbrT2 ];
+//    UIButton *thumbrT2 = [Thumbr loadThumbrT:relativeSize relativeSize:position];
+//    [self.thumbrTView addSubview:thumbrT2 ];
     
 }
 

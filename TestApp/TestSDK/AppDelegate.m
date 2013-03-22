@@ -58,7 +58,7 @@ NSObject *scoreOutput;
      
      -default (the default behaviour)
      -registration (forced registration form)
-     -optional_registration (extra registration that can be used to earn more 'credits'
+     -optional_registration (registration behaviour can be influenced server sided)
      */
     [Thumbr setAction:@"optional_registration"];
     

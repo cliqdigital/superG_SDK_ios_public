@@ -13,7 +13,7 @@
 		B8E189EE15988DE1002487B3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8E189EC15988DE1002487B3 /* InfoPlist.strings */; };
 		B8E189F015988DE1002487B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E189EF15988DE1002487B3 /* main.m */; };
 		B8E189F415988DE1002487B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E189F315988DE1002487B3 /* AppDelegate.m */; };
-		B8E189F715988DE1002487B3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E189F615988DE1002487B3 /* ViewController.m */; };
+		B8E189F715988DE1002487B3 /* ViewController.m in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E189F615988DE1002487B3 /* ViewController.m */; };
 		B8E18A0915988F91002487B3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E18A0815988F91002487B3 /* CFNetwork.framework */; };
 		B8E18A0B15988FD1002487B3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E18A0A15988FD1002487B3 /* SystemConfiguration.framework */; };
 		BB0589CD165D018E00819790 /* Thumbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B53594C1647AC6600763206 /* Thumbr.framework */; };
@@ -82,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8E189F715988DE1002487B3 /* ViewController.m in Frameworks */,
 				BB0589CD165D018E00819790 /* Thumbr.framework in Frameworks */,
 				B8E18A0B15988FD1002487B3 /* SystemConfiguration.framework in Frameworks */,
 				B8E18A0915988F91002487B3 /* CFNetwork.framework in Frameworks */,
@@ -258,7 +259,6 @@
 			files = (
 				B8E189F015988DE1002487B3 /* main.m in Sources */,
 				B8E189F415988DE1002487B3 /* AppDelegate.m in Sources */,
-				B8E189F715988DE1002487B3 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
