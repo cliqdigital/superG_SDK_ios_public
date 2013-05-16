@@ -14,6 +14,7 @@ To apply for a Thumbr developer account for your game, please visit:
 
 Revision history
 ----------------
+
 <table>
 	<tr>
 		<td>2.0.31</td>
