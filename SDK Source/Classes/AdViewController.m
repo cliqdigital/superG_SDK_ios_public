@@ -179,8 +179,8 @@
     MadsAdView *adview = nil;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-    {    CGRect keyFrame = [UIApplication sharedApplication].keyWindow.frame;
-        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0,keyFrame.size.width, keyFrame.size.height) zone:[adSettings objectForKey:@"iPhone_Inline_zoneid"] secret:[adSettings objectForKey:@"iPhone_Inline_secret"] delegate:self];
+    {
+        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320, 50) zone:[adSettings objectForKey:@"iPhone_Inline_zoneid"] secret:[adSettings objectForKey:@"iPhone_Inline_secret"] delegate:self];
     }
     else
     {

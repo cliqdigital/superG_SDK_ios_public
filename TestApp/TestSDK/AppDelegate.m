@@ -25,7 +25,7 @@ NSString *const portalUrl = @"https://mobile.thumbr.com/start?";
 
 NSString *const statusBarHidden = @"TRUE";//TRUE or FALSE
 
-//LOCAL SETTINGS :: LEAVE EMPTY UNLESS SPECIFICALLY REQUIRED
+//LOCALIZATION SETTINGS :: LEAVE EMPTY UNLESS SPECIFICALLY REQUIRED
 NSString *const country = @"";
 NSString *const locale = @"";
 
@@ -175,6 +175,7 @@ NSObject *scoreOutput;
         float height = frame.size.height;
         adViewFrame.origin.y = frameheight-height;
     }
+
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
     [UIView setAnimationDelay:1.0];

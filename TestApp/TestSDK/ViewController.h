@@ -19,5 +19,4 @@
 
 @property (retain, nonatomic) IBOutlet UIView *adView;
 
-
 @end
