@@ -75,7 +75,7 @@
 		BB8FAF19165E809C00740205 /* refresh-default.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8FAF16165E809C00740205 /* refresh-default.png */; };
 		BB8FAF1A165E809C00740205 /* refresh-default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8FAF17165E809C00740205 /* refresh-default@2x.png */; };
 		BB8FAF1B165E809C00740205 /* refresh-default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8FAF17165E809C00740205 /* refresh-default@2x.png */; };
-		BBAB489917044D1800F7F71C /* MadsSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAB489817044D1800F7F71C /* MadsSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		BBA348A31744ED110057D8D0 /* MadsSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA348A21744ED110057D8D0 /* MadsSDK.framework */; };
 		BBBD2061169B07B6006B38FB /* thumbr_00030.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBD201F169B07B3006B38FB /* thumbr_00030.png */; };
 		BBBD2062169B07B6006B38FB /* thumbr_00031.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBD2020169B07B3006B38FB /* thumbr_00031.png */; };
 		BBBD2063169B07B6006B38FB /* thumbr_00032.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBD2021169B07B3006B38FB /* thumbr_00032.png */; };
@@ -238,7 +238,7 @@
 		BB8FAF11165E809100740205 /* refresh-default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-default~ipad.png"; sourceTree = "<group>"; };
 		BB8FAF16165E809C00740205 /* refresh-default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-default.png"; sourceTree = "<group>"; };
 		BB8FAF17165E809C00740205 /* refresh-default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-default@2x.png"; sourceTree = "<group>"; };
-		BBAB489817044D1800F7F71C /* MadsSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MadsSDK.framework; path = "../_public_repository/SDK Files/MadsSDK.framework"; sourceTree = "<group>"; };
+		BBA348A21744ED110057D8D0 /* MadsSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MadsSDK.framework; path = Resources/MadsSDK.framework; sourceTree = "<group>"; };
 		BBBD201F169B07B3006B38FB /* thumbr_00030.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbr_00030.png; sourceTree = "<group>"; };
 		BBBD2020169B07B3006B38FB /* thumbr_00031.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbr_00031.png; sourceTree = "<group>"; };
 		BBBD2021169B07B3006B38FB /* thumbr_00032.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbr_00032.png; sourceTree = "<group>"; };
@@ -329,7 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB59922116A587A100049FCF /* LRResty.framework in Frameworks */,
-				BBAB489917044D1800F7F71C /* MadsSDK.framework in Frameworks */,
+				BBA348A31744ED110057D8D0 /* MadsSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,7 +497,7 @@
 		4EA0ADC31518D475003A80F4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BBAB489817044D1800F7F71C /* MadsSDK.framework */,
+				BBA348A21744ED110057D8D0 /* MadsSDK.framework */,
 				BB8629DB1700AB1400AE2755 /* libAppsFlyerLib.a */,
 				BB59922016A587A100049FCF /* LRResty.framework */,
 				4EA0ADC41518D475003A80F4 /* CoreFoundation.framework */,

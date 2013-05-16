@@ -108,7 +108,10 @@ And register the following methods and variables:
 	FOUNDATION_EXPORT NSString *const appsflyerNotifyAppID;
 	FOUNDATION_EXPORT NSString *const registerUrl;
 
-	- (void) initilizeSDK;	
+	+(NSDictionary*) getAdSettings;
+	- (void) initilizeSDK;
+	- (void) animateAdIn:(id)sender;
+	- (void) animateAdOut:(id)sender;
 
 •  **Step 3**
 -
@@ -132,10 +135,28 @@ Below your @synthesize section, add the Thumbr Settings (get them from your Thum
 	NSString *const registerUrl = @"https://gasp.thumbr.com/auth/authorize?";
 	NSString *const switchUrl = @"https://gasp.thumbr.com/auth/authorize?";
 	NSString *const portalUrl = @"https://mobile.thumbr.com/start?";
+	NSString *const statusBarHidden = @"TRUE";//TRUE or FALSE
 	
 	//LOCAL SETTINGS :: LEAVE EMPTY UNLESS SPECIFICALLY REQUIRED
 	NSString *const country = @"";
 	NSString *const locale = @"";
+	
+	//AD SERVING SETTINGS
+	#define updateTimeInterval @"0"//default number of seconds before Inline Ad refreshes (can be overridden serverside)
+	#define autocloseInterstitialTime @"600"//number of seconds before interstitial Ad closes
+	#define showCloseButtonTime @"6"//Number of seconds before the Ad close button appears
+	#define iPad_Inline_zoneid @"0337178053"
+	#define iPad_Inline_secret @"F0B4E489B0CFC0BB"
+	#define iPad_Overlay_zoneid @"8336743053"
+	#define iPad_Overlay_secret @"BEF5D9D4D3E9B3CC"
+	#define iPad_Interstitial_zoneid @"0336739057"
+	#define iPad_Interstitial_secret @"DA018F2094E8189C"
+	#define iPhone_Inline_zoneid @"5383077054"
+	#define iPhone_Inline_secret @"C9AC24EF9CB18FFD"
+	#define iPhone_Overlay_zoneid @"8383057050"
+	#define iPhone_Overlay_secret @"A2E465BF955D25A5"
+	#define iPhone_Interstitial_zoneid @"8383057050"
+	#define iPhone_Interstitial_secret @"A2E465BF955D25A5"
 	
 	//init score variables
 	NSMutableDictionary *scoreParams;
@@ -158,34 +179,44 @@ And add these lines to your ** *didFinishLaunchingWithOptions* ** method:
     //OPEN THE SDK UPON APP START
     [Thumbr startThumbrPortalRegistration];
 
-Last, in this file, add these methods:
+
+Last, in this file, add (or update) these methods:
+
+	- (void)applicationWillTerminate:(UIApplication *)application
+	{
+	    [Thumbr stop];
+	}
+	- (void)applicationDidEnterBackground:(UIApplication *)application
+	{
+	    [Thumbr stop];
+	}
 
 	- (void) initilizeSDK
 	{
-    	//remove keyboard
-    	for (UIView* view in [_viewController.view subviews]) {
-        	if ([view isKindOfClass: [UITextField class]] ) {
-            	if ([view isFirstResponder]) {
-                	[view resignFirstResponder];
-            }
-        }
-    }  
-
-    //Implement the SDK
-    NSNumber *ThumbrOrientation;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-    {
-        ThumbrOrientation = [NSNumber numberWithInt: UIDeviceOrientationPortrait];
-    }
-    	else
-    {
-        ThumbrOrientation = [NSNumber numberWithInt: UIDeviceOrientationLandscapeLeft];
-    }
-    
-        NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:scoreGameID,scoreGameID,country,ThumbrSettingnew_country, locale,ThumbrSettingnew_locale,self.window, ThumbrSettingPresentationWindow, client_id, ThumbrSettingClientId, sid , ThumbrSettingSid, registerUrl, ThumbrSettingRegisterUrl, portalUrl , ThumbrSettingPortalUrl, switchUrl , ThumbrSettingSwitchUrl, [NSNumber numberWithBool:NO], ThumbrSettingChangeOrientationOnRotation, ThumbrOrientation, ThumbrSettingPortalOrientation, [NSNumber numberWithBool:YES], ThumbrSettingShowLoadingErrors, [NSNumber numberWithBool:TRUE], ThumbrSettingShowCloseButton, nil];
-    
-    [Thumbr initializeSDKWithSettings:settings andDelegate:self];
-            
+	    //remove keyboard
+	    for (UIView* view in [_viewController.view subviews]) {
+	        if ([view isKindOfClass: [UITextField class]] ) {
+	            if ([view isFirstResponder]) {
+	                [view resignFirstResponder];
+	            }
+	        }
+	    }
+	    
+	    //Implement the SDK
+	    NSNumber *ThumbrOrientation;
+	    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+	    {
+	        ThumbrOrientation = [NSNumber numberWithInt: UIDeviceOrientationPortrait];
+	    }
+	    else
+	    {
+	        ThumbrOrientation = [NSNumber numberWithInt: UIDeviceOrientationLandscapeLeft];
+	    }
+	    
+	    NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:scoreGameID,scoreGameID,country,ThumbrSettingnew_country, locale,ThumbrSettingnew_locale,self.window, ThumbrSettingPresentationWindow, client_id, ThumbrSettingClientId, sid , ThumbrSettingSid, registerUrl, ThumbrSettingRegisterUrl, portalUrl , ThumbrSettingPortalUrl, switchUrl , ThumbrSettingSwitchUrl, [NSNumber numberWithBool:YES], ThumbrSettingChangeOrientationOnRotation, ThumbrOrientation, ThumbrSettingPortalOrientation, [NSNumber numberWithBool:YES], ThumbrSettingShowLoadingErrors, [NSNumber numberWithBool:TRUE], ThumbrSettingShowCloseButton,statusBarHidden,ThumbrSettingStatusBarHidden, nil];
+	    
+	    [Thumbr initializeSDKWithSettings:settings andDelegate:self];
+	    
 	}
 
 	#pragma mark Thumbr SDK delegate
@@ -201,15 +232,69 @@ Last, in this file, add these methods:
 	{
     	NSLog(@"The Game was notified about the closing PortalView");
 	}
+	+ (NSDictionary*)getAdSettings{
+	    
+	    NSDictionary *adSettings = [NSDictionary dictionaryWithObjectsAndKeys:showCloseButtonTime,@"showCloseButtonTime",autocloseInterstitialTime ,@"autocloseInterstitialTime",iPad_Inline_zoneid,@"iPad_Inline_zoneid",iPad_Inline_secret,@"iPad_Inline_secret",iPad_Overlay_zoneid,@"iPad_Overlay_zoneid",iPad_Overlay_secret,@"iPad_Overlay_secret",iPad_Interstitial_zoneid,@"iPad_Interstitial_zoneid",iPad_Interstitial_secret,@"iPad_Interstitial_secret",iPhone_Inline_zoneid,@"iPhone_Inline_zoneid",iPhone_Inline_secret,@"iPhone_Inline_secret",iPhone_Overlay_zoneid,@"iPhone_Overlay_zoneid",iPhone_Overlay_secret,@"iPhone_Overlay_secret",iPhone_Interstitial_zoneid,@"iPhone_Interstitial_zoneid",iPhone_Interstitial_secret,@"iPhone_Interstitial_secret",updateTimeInterval,@"updateTimeInterval", nil];
+	    return adSettings;
+	}
+	
+	- (void) animateAdIn:(id)sender{
+	    NSLog(@"animate Ad in");
+	    _viewController.adView.hidden = NO;
+	    CGRect adViewFrame = _viewController.adView.frame;
+	    int frameheight=640;
+	    
+	    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+	        frameheight = _viewController.view.frame.size.width;
+	    }
+	    else{
+	        frameheight = _viewController.view.frame.size.height;
+	    }
+	    adViewFrame.origin.y = frameheight-adViewFrame.size.height;
+	    
+	    CGRect frame = [sender frame];
+	    if(frame.size.height>10){
+	        float height = frame.size.height;
+	        adViewFrame.origin.y = frameheight-height;
+	    }
+	    [UIView beginAnimations:nil context:nil];
+	    [UIView setAnimationDuration:0.5];
+	    [UIView setAnimationDelay:1.0];
+	    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+	    _viewController.adView.frame = adViewFrame;
+	    [UIView commitAnimations];
+	}
+	
+	- (void) animateAdOut:(id)sender{
+	    NSLog(@"animate Ad out");
+	    CGRect adViewFrame = _viewController.adView.frame;
+	    int frameheight=640;
+	    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+	        frameheight = _viewController.view.frame.size.width;
+	    }
+	    else{
+	        frameheight = _viewController.view.frame.size.height;
+	    }
+	    
+	    adViewFrame.origin.y = frameheight;
+	    
+	    [UIView beginAnimations:nil context:nil];
+	    [UIView setAnimationDuration:0.5];
+	    [UIView setAnimationDelay:0];
+	    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+	    _viewController.adView.frame = adViewFrame;
+	    [UIView commitAnimations];
+	}
 	
 •  Step 4
 -
-Open the view controller where the Thumbr button will be.
+Open the view controller where the Thumbr button and / or the advertisements will be.
 
 Add this to your imports:
 
 	#import "Thumbr/Thumbr.h"
-
+	#import "Thumbr/AdViewController.h"
+	
 and add these lines to your ** *viewDidLoad* ** method:
 
 		    //POSITION OF THE THUMBR BUTTON
@@ -225,6 +310,33 @@ and add these lines to your ** *viewDidLoad* ** method:
 
 **To add the Thumbr button to a sub view (for custom positions), please consult the Demo application**
 
+If you are using inline advertisements (Banners), create the UIViews for this.
+For iPhone use: 320x50 px
+For iPad use: 1024x120 pixels
+
+To your "viewcontroller.h" add:
+
+	@property (retain, nonatomic) IBOutlet UIView *adView;
+
+
+In your "viewcontroller.m" calling the different advertisements uses these methods:
+
+#####Overlay advertisement:
+
+    NSDictionary* adSettings = [AppDelegate getAdSettings];
+    [[[[AdViewController alloc] init] retain] adOverlay:adSettings];
+
+#####Inline advertisement (banner):
+
+    NSDictionary* adSettings = [AppDelegate getAdSettings];
+    [[[[AdViewController alloc] init] retain] adInline:adSettings adSettings:self.adView];
+
+#####Interstitial advertisement (fullscreen):
+
+    NSDictionary* adSettings = [AppDelegate getAdSettings];
+    [[[[AdViewController alloc] init] retain] adInterstitial:adSettings];
+
+    
 
 •  Step 5 (important!)
 -
@@ -235,7 +347,7 @@ Add
 to the 'Other linker flags' in (your project)->Build Settings->Linking
 
 Make sure that the following frameworks are included in your Build Phases->Link Binaries With Libraries:
-	• CoreGraphics • Foundation • SystemConfiguration • UIKit • Thumbr
+	• CoreGraphics 	• Foundation 	• SystemConfiguration 	• UIKit 	• Thumbr
 
 •  REMARKS
 -
