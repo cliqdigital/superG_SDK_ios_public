@@ -11,8 +11,12 @@
 #import "Thumbr+Private.h"
 #import "ThumbrReachability.h"
 #import "PortalViewController.h"
-#import "scoreBoard.h"
+//#import "scoreBoard.h"
+#import "AppsFlyer.h"
+#import <MadsSDK/MadsSDK.h>
+#import "AdViewController.h"
 
+NSString* ThumbrSettingStatusBarHidden              = @"ThumbrSettingStatusBarHidden";
 NSString* ThumbrSettingPresentationWindow           = @"ThumbrSettingPresentationWindow";
 NSString* ThumbrSettingPortalOrientation            = @"ThumbrSettingPortalOrientation";
 NSString* ThumbrSettingChangeOrientationOnRotation  = @"ThumbrSettingChangeOrientationOnRotation";
@@ -25,7 +29,7 @@ NSString* ThumbrSettingShowLoadingErrors            = @"ThumbrSettingShowLoading
 NSString* ThumbrSettingShowCloseButton              = @"ThumbrSettingShowCloseButton";
 NSString* ThumbrSettingnew_country                  = @"new_country";
 NSString* ThumbrSettingnew_locale                   = @"new_locale";
-NSString* ThumbrSettingScoreGameID                  = @"ThumbrSettingScoreGameID";
+//NSString* ThumbrSettingScoreGameID                  = @"ThumbrSettingScoreGameID";
 
 ThumbrReachability* thumbrReachability;
 
@@ -61,6 +65,7 @@ ThumbrReachability* thumbrReachability;
     UIWindow* presentationWindow;
     UIViewController* portalViewController;
     UIDeviceOrientation portalOrientation;
+    NSString* statusBarHidden;
     NSString* sid;
     NSString* clientId;
     NSString* country;
@@ -80,6 +85,7 @@ ThumbrReachability* thumbrReachability;
 @property(strong) UIWindow* presentationWindow;
 @property(strong) UIViewController* portalViewController;
 @property UIDeviceOrientation portalOrientation;
+@property(strong) NSString* statusBarHidden;
 @property(strong) NSString* sid;
 @property(strong) NSString* clientId;
 @property(strong) NSString* country;
@@ -105,6 +111,7 @@ ThumbrReachability* thumbrReachability;
 
 @synthesize delegate;
 @synthesize presentationWindow;
+@synthesize statusBarHidden;
 @synthesize portalViewController;
 @synthesize portalOrientation;
 @synthesize sid;
@@ -129,8 +136,10 @@ ThumbrReachability* thumbrReachability;
 + (void) initializeSDKWithSettings: (NSDictionary*)_settings andDelegate: (id)_delegate;
 {
 
+    [MadsAdServer startWithLocationEnabled:YES withLocationPurpose:NSLocalizedString(@"", nil) withAppTargetingEnabled:YES];
+    [AdViewController getAdSettings];
     Thumbr* instance = [Thumbr instance];
-    [Thumbr synchronizeScores];
+//    [Thumbr synchronizeScores];
     
     instance.delegate = _delegate;
 
@@ -145,6 +154,10 @@ ThumbrReachability* thumbrReachability;
     }
 
     //settings
+    instance.statusBarHidden = [_settings objectForKey:ThumbrSettingStatusBarHidden];
+    if (![instance.statusBarHidden length]) {
+        [NSException raise:NSInvalidArgumentException format:@"ThumbrSDK ERROR: ThumbrSettingStatusBarHidden is not properly set"];
+    }
     
     instance.presentationWindow = [_settings objectForKey:ThumbrSettingPresentationWindow];
     if (![instance.presentationWindow isKindOfClass:[UIWindow class]]) {
@@ -232,13 +245,19 @@ ThumbrReachability* thumbrReachability;
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[Thumbr getResourceBundle] pathForResource:@"defaults" ofType: @"plist"]]];
 }
 
++(void) stop{
+    NSLog(@"Stopping Thumbr SDK");
+    
+    [MadsAdServer stop];
+}
+
 #pragma mark -  open/close Portal Method
 
 //general portal start call
 + (void) openPortalWithUrl: (NSURL*)url {
     //load the portalview with the url
 //     NSLog(@"******* openPortalWithUrl: %@", url);
-
+    
     Thumbr* instance = [Thumbr instance];
     instance.currentUrl = url;
     UIView* portalview = [instance.presentationWindow viewWithTag:PORTALVIEWTAG];
@@ -314,6 +333,12 @@ ThumbrReachability* thumbrReachability;
     [self openPortalWithUrl:[NSURL URLWithString: url]];
 }
 
++ (NSString *) statusBarHidden{
+        Thumbr* instance = [Thumbr instance];
+    return instance.statusBarHidden;
+}
+
+
 //start portal to switch users
 + (void) startThumbrPortalSwitch{
 //     NSLog(@"******* startThumbrPortalSwitch..");
@@ -341,7 +366,7 @@ ThumbrReachability* thumbrReachability;
 }
 
 + (void) resume{
-    [Thumbr synchronizeScores];
+//    [Thumbr synchronizeScores];
 }
 
 //start thumbr portal
@@ -357,19 +382,19 @@ ThumbrReachability* thumbrReachability;
 
 
 // start scores overview
-+ (void) openScores{
-    
-    //NSURL *url =[NSURL fileURLWithPath:[[Thumbr getResourceBundle ] pathForResource:@"score" ofType:@"html"]isDirectory:NO];
-    //NSString *URLString = [url absoluteString];
-    NSString *URLString = @"http://twimmer.com/scoreoid";
-    
-    NSString *queryString = @"?sms=1&i[]=scores&i[]=assets&i[]=goals&i[]=levels&i[]=inventory&a[]=bonus&a[]=gold&a[]=money&a[]=kills&a[]=lives&a[]=xp&a[]=energy&ab=50&ag=10&am=100&ak=10&al=5&ax=99&ae=88&sm=100&sc=50&s1=100&s2=90&s3=80&s4=70&s5=60&s6=50&s7=40&s8=30&s9=20&s10=10&su1=jan&su2=klaas&su3=piet&su4=henkmetdelangeachternaam&su5=truus&su6=bep&su7=tina&su8=bert&su9=fluppie&su10=willem&l[]=1,1,first%20level&l[]=2,1,second%20level&l[]=3,1,third%20level&l[]=4,0,fourth%20level&l[]=5,0,fifth%20level&l[]=6,0,sixth%20level&l[]=7,0,seventh%20level&l[]=8,0,eighth%20level&n[]=1,1,bike&n[]=2,1,car&n[]=3,0,flashlight&n[]=4,0,hammer&n[]=5,0,scizzors&n[]=6,0,good%20luck&n[]=7,0,wisdom&n[]=8,0,sunshine&n[]=9,0,wealth&n[]=10,0,health&g[]=1,1,beginner&g[]=2,1,slightly%20better&g[]=3,0,somewhat%20good&g[]=4,0,fairly%20good&g[]=5,0,good&g[]=6,0,pretty%20good&g[]=7,0,really%20good&g[]=8,0,excellent&g[]=9,0,brilliant&g[]=10,0,expert";
-    NSString *URLwithQueryString = [URLString stringByAppendingString: queryString];
-    NSLog(@"open scores with url:  %@",URLwithQueryString);
-    NSURL *finalURL = [NSURL URLWithString:URLwithQueryString];
-    
-    [self openPortalWithUrl:finalURL];
-}
+//+ (void) openScores{
+//    
+//    //NSURL *url =[NSURL fileURLWithPath:[[Thumbr getResourceBundle ] pathForResource:@"score" ofType:@"html"]isDirectory:NO];
+//    //NSString *URLString = [url absoluteString];
+//    NSString *URLString = @"http://twimmer.com/scoreoid";
+//    
+//    NSString *queryString = @"?sms=1&i[]=scores&i[]=assets&i[]=goals&i[]=levels&i[]=inventory&a[]=bonus&a[]=gold&a[]=money&a[]=kills&a[]=lives&a[]=xp&a[]=energy&ab=50&ag=10&am=100&ak=10&al=5&ax=99&ae=88&sm=100&sc=50&s1=100&s2=90&s3=80&s4=70&s5=60&s6=50&s7=40&s8=30&s9=20&s10=10&su1=jan&su2=klaas&su3=piet&su4=henkmetdelangeachternaam&su5=truus&su6=bep&su7=tina&su8=bert&su9=fluppie&su10=willem&l[]=1,1,first%20level&l[]=2,1,second%20level&l[]=3,1,third%20level&l[]=4,0,fourth%20level&l[]=5,0,fifth%20level&l[]=6,0,sixth%20level&l[]=7,0,seventh%20level&l[]=8,0,eighth%20level&n[]=1,1,bike&n[]=2,1,car&n[]=3,0,flashlight&n[]=4,0,hammer&n[]=5,0,scizzors&n[]=6,0,good%20luck&n[]=7,0,wisdom&n[]=8,0,sunshine&n[]=9,0,wealth&n[]=10,0,health&g[]=1,1,beginner&g[]=2,1,slightly%20better&g[]=3,0,somewhat%20good&g[]=4,0,fairly%20good&g[]=5,0,good&g[]=6,0,pretty%20good&g[]=7,0,really%20good&g[]=8,0,excellent&g[]=9,0,brilliant&g[]=10,0,expert";
+//    NSString *URLwithQueryString = [URLString stringByAppendingString: queryString];
+//    NSLog(@"open scores with url:  %@",URLwithQueryString);
+//    NSURL *finalURL = [NSURL URLWithString:URLwithQueryString];
+//    
+//    [self openPortalWithUrl:finalURL];
+//}
 
 
 + (UIButton *)loadThumbrT:(float)relativeSize relativeSize:(NSString *)position{
@@ -468,344 +493,346 @@ ThumbrReachability* thumbrReachability;
  SCOREOID
 */
 
-+(void)synchronizeScores{
-    [scoreBoard synchronizeScores];
-}
+//+(void)synchronizeScores{
+//    [scoreBoard synchronizeScores];
+//}
+//
+//
+//
+///*
+// ** getNotification**;
+// ** method lets you pull your game's in game notifications.
+// **/
+//+ (NSObject *) getNotification{
+//    NSMutableDictionary *scoreParams = [NSMutableDictionary dictionary];
+//    method = @"getNotification";
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getGameTotal**;
+// ** gets the total for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.
+// *  REQUIRED: field                         String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// **/
+//+ (NSObject *) getGameTotal:(NSString *)field :(NSMutableDictionary *)scoreParams{
+//    method = @"getGameTotal";
+//    [scoreParams setObject:field forKey:@"field"];
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getGameLowest**;
+// ** gets the lowest vaule for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.
+// *  REQUIRED: field                         String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// **/
+//+ (NSObject *) getGameLowest:(NSString *)field :(NSMutableDictionary *)scoreParams{
+//    method = @"getGameLowest";
+//    [scoreParams setObject:field forKey:@"field"];
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getGameTop**;
+// ** gets the top value for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.
+// *  REQUIRED: field                         String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// **/
+//+ (NSObject *) getGameTop:(NSString *)field :(NSMutableDictionary *)scoreParams{
+//    method = @"getGameTop";
+//    [scoreParams setObject:field forKey:@"field"];
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getGameAverage**;
+// ** gets the average for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.
+// *  REQUIRED: field                         String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// **/
+//+ (NSObject *) getGameAverage:(NSString *)field :(NSMutableDictionary *)scoreParams{
+//    method = @"getGameAverage";
+//    [scoreParams setObject:field forKey:@"field"];
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getPlayers**;
+// ** API method lets you get all the players for a specif game.getGameField
+// *  OPTIONAL: order_by                      String Value, (date or score)
+// *  OPTIONAL: order                         String Value, asc or desc
+// *  OPTIONAL: limit                         Number Value, the limit, "20" retrieves rows 1 - 20 | "10,20" retrieves 20 scores starting from the 10th
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: platform                      String Value, needs to match the string value that was used when creating the player
+// **/
+//+ (NSObject *) getPlayers:(NSMutableDictionary *)scoreParams{
+//    method = @"getPlayers";
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getGameField**;
+// ** method lets you pull a specific field from your game info.
+// *  OPTIONAL: field                         name,short_description,description,game_type,version,levels,platform,play_url,website_url,created,updated,player_count,scores_count,locked,status,
+// **/
+//+ (NSObject *) getGameField:(NSMutableDictionary *)scoreParams{
+//    method = @"getGameField";
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getGame**;
+// ** method lets you pull all your game information.
+// **/
+//+ (NSObject *) getGame{
+//    NSMutableDictionary *scoreParams = [NSMutableDictionary dictionary];
+//    method = @"getGame";
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getPlayerScores**;
+// ** method lets you pull all the scores for a player.
+// *  REQUIRED: username                      String Value, the players username
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+// **/
+//+ (NSObject *) getPlayerScores:(NSString *)username :(NSMutableDictionary *)scoreParams{
+//    method = @"getPlayerScores";
+//    [scoreParams setObject:username forKey:@"username"];
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getPlayer**;
+// ** method Check if player exists and returns the player information. Post parameters work as query conditions. This method can be used for login by adding username and password parameters.
+// *  OPTIONAL: id                            The players ID [String]
+// *  REQUIRED: username                      String Value, the players username
+// *  OPTIONAL: password                      The players password [String]
+// **/
+//+ (NSObject *) getPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams{
+//    method = @"getPlayer";
+//    [scoreParams setObject:username forKey:@"username"];
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** editPlayer**;
+// ** method lets you edit your player information.
+// *  REQUIRED: username                      String Value, the players username
+// *  OPTIONAL: password                      The players password [String]
+// *  OPTIONAL: unique_id                     Integer Value,
+// *  OPTIONAL: first_name                    The players first name [String]
+// *  OPTIONAL: last_name                     The players last name [String]
+// *  OPTIONAL: created                       The date the player was created calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
+// *  OPTIONAL: updated                       The last time the player was updated calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
+// *  OPTIONAL: bonus                         The players bonus [Integer]
+// *  OPTIONAL: achievements                  The players achievements [String, comma-separated]
+// *  OPTIONAL: best_score                    The players best score calculated by Scoreoid [Integer]
+// *  OPTIONAL: gold                          The players gold [Integer]
+// *  OPTIONAL: money                         The players money [Integer]
+// *  OPTIONAL: kills                         The players kills [Integer]
+// *  OPTIONAL: lives                         The players lives [Integer]
+// *  OPTIONAL: time_played                   The time the player played [Integer]
+// *  OPTIONAL: unlocked_levels               The players unlocked levels [Integer]
+// *  OPTIONAL: unlocked_items                The players unlocked items [String, comma-separated]
+// *  OPTIONAL: inventory                     The players inventory [String, comma-separated]
+// *  OPTIONAL: last_level                    The players last level [Integer]
+// *  OPTIONAL: current_level                 The players current level [Integer]
+// *  OPTIONAL: current_time                  The players current time [Integer]
+// *  OPTIONAL: current_bonus                 The players current bonus [Integer]
+// *  OPTIONAL: current_kills                 The players current kills [Integer]
+// *  OPTIONAL: current_achievements          The players current achievements [String, comma-separated]
+// *  OPTIONAL: current_gold                  The players current gold [Integer]
+// *  OPTIONAL: current_unlocked_levels       The players current unlocked levels [Integer]
+// *  OPTIONAL: current_unlocked_items        The players current unlocked items [String, comma-separated]
+// *  OPTIONAL: current_lifes                 The players current lifes [Integer]
+// *  OPTIONAL: xp                            The players XP [Integer]
+// *  OPTIONAL: energy                        The players energy [Integer]
+// *  OPTIONAL: boost                         The players energy [Integer]
+// *  OPTIONAL: latitude                      The players GPS latitude [Integer]
+// *  OPTIONAL: longitude                     The players GPS longitude [Integer]
+// *  OPTIONAL: game_state                    The players game state [String]
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// **/
+//+ (NSObject *) editPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams{
+//    method = @"editPlayer";
+//    [scoreParams setObject:username forKey:@"username"];
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** countPlayers**;
+// ** method lets you count all your players.
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// **/
+//+ (NSObject *) countPlayers:(NSMutableDictionary *)scoreParams{
+//    method = @"countPlayers";
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** updatePlayerField**;
+// ** method lets you update your player field's.
+// *  REQUIRED: username                      String Value, the players username
+// *  REQUIRED: field                         password,unique_id,first_name,last_name,created,updated,bonus,achievements,gold,money,kills,lives,time_played,unlocked_levels,unlocked_items,inventory,last_level,current_level,current_time,current_bonus,current_kills,current_achievements,current_gold,current_unlocked_levels,current_unlocked_items,current_lifes,xp,energy,boost,latitude,longitude,game_state,platform,
+// *  REQUIRED: value                         String Value, the field value
+// **/
+//+ (NSObject *) updatePlayerField:(NSString *)username :(NSString *)field :(NSString *)value :(NSMutableDictionary *)scoreParams{
+//    method = @"updatePlayerField";
+//    [scoreParams setObject:username forKey:@"username"];
+//    [scoreParams setObject:field forKey:@"field"];
+//    [scoreParams setObject:value forKey:@"value"];
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** createPlayer**;
+// ** method lets you create a player with a number of optional values.
+// *  REQUIRED: username                      The players username [String]
+// *  OPTIONAL: password                      The players password used if you would like to create user log-in [String]
+// *  OPTIONAL: score                         Integer Value
+// *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+// *  OPTIONAL: unique_id                     Integer Value,
+// *  OPTIONAL: first_name                    The players first name [String]
+// *  OPTIONAL: last_name                     The players last name [String]
+// *  OPTIONAL: created                       The date the player was created calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
+// *  OPTIONAL: updated                       The last time the player was updated calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
+// *  OPTIONAL: bonus                         The players bonus [Integer]
+// *  OPTIONAL: achievements                  The players achievements [String, comma-separated]
+// *  OPTIONAL: best_score                    The players best score calculated by Scoreoid [Integer]
+// *  OPTIONAL: gold                          The players gold [Integer]
+// *  OPTIONAL: money                         The players money [Integer]
+// *  OPTIONAL: kills                         The players kills [Integer]
+// *  OPTIONAL: lives                         The players lives [Integer]
+// *  OPTIONAL: time_played                   The time the player played [Integer]
+// *  OPTIONAL: unlocked_levels               The players unlocked levels [Integer]
+// *  OPTIONAL: unlocked_items                The players unlocked items [String, comma-separated]
+// *  OPTIONAL: inventory                     The players inventory [String, comma-separated]
+// *  OPTIONAL: last_level                    The players last level [Integer]
+// *  OPTIONAL: current_level                 The players current level [Integer]
+// *  OPTIONAL: current_time                  The players current time [Integer]
+// *  OPTIONAL: current_bonus                 The players current bonus [Integer]
+// *  OPTIONAL: current_kills                 The players current kills [Integer]
+// *  OPTIONAL: current_achievements          The players current achievements [String, comma-separated]
+// *  OPTIONAL: current_gold                  The players current gold [Integer]
+// *  OPTIONAL: current_unlocked_levels       The players current unlocked levels [Integer]
+// *  OPTIONAL: current_unlocked_items        The players current unlocked items [String, comma-separated]
+// *  OPTIONAL: current_lifes                 The players current lifes [Integer]
+// *  OPTIONAL: xp                            The players XP [Integer]
+// *  OPTIONAL: energy                        The players energy [Integer]
+// *  OPTIONAL: boost                         The players energy [Integer]
+// *  OPTIONAL: latitude                      The players GPS latitude [Integer]
+// *  OPTIONAL: longitude                     The players GPS longitude [Integer]
+// *  OPTIONAL: game_state                    The players game state [String]
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// **/
+//+ (NSObject *) createPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams{
+//    method = @"createPlayer";
+//    [scoreParams setObject:username forKey:@"username"];
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** countBestScores**;
+// ** method lets you count all your game best scores.
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+// **/
+//+ (NSObject *) countBestScores:(NSMutableDictionary *)scoreParams{
+//    method = @"countBestScores";
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getAverageScore**;
+// ** method lets you get all your game average scores.
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+// **/
+//+ (NSObject *) getAverageScore:(NSMutableDictionary *)scoreParams{
+//    method = @"getAverageScore";
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getBestScores**;
+// ** method lets you get all your games best scores.
+// *  OPTIONAL: order_by                      String Value, (date or score)
+// *  OPTIONAL: order                         String Value, asc or desc
+// *  OPTIONAL: limit                         Number Value, the limit, "20" retrieves rows 1 - 20 | "10,20" retrieves 20 scores starting from the 10th
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+// **/
+//+ (NSObject *) getBestScores:(NSMutableDictionary *)scoreParams{
+//    method = @"getBestScores";
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** countScores**;
+// ** method lets you count all your game scores.
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+// **/
+//+ (NSObject *) countScores:(NSMutableDictionary *)scoreParams{
+//    method = @"countScores";
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** getScores**;
+// ** method lets you pull all your game scores.
+// *  OPTIONAL: order_by                      String Value, (date or score)
+// *  OPTIONAL: order                         String Value, asc or desc
+// *  OPTIONAL: limit                         Number Value, the limit, "20" retrieves rows 1 - 20 | "10,20" retrieves 20 scores starting from the 10th
+// *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
+// *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
+// *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
+// *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
+// **/
+//+ (NSObject *) getScores:(NSMutableDictionary *)scoreParams{
+//    method = @"getScores";
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
+///*
+// ** createScore**;
+// ** method lets you create a user score.
+// *  REQUIRED: username                      String Value, if user does not exist it well be created
+// *  REQUIRED: score                         Integer Value,
+// *  OPTIONAL: platform                      String Value,
+// *  OPTIONAL: unique_id                     Integer Value,
+// *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don\t use 0 as it's the default value)
+// **/
+//+ (NSObject *) createScore:(NSString *)username :(NSString *)score :(NSMutableDictionary *)scoreParams{
+//    method = @"createScore";
+//    [scoreParams setObject:username forKey:@"username"];
+//    [scoreParams setObject:score forKey:@"score"];
+//    NSObject* result=[scoreBoard send:scoreParams params:method];
+//    return result;
+//}
 
 
-
-/*
- ** getNotification**;
- ** method lets you pull your game's in game notifications.
- **/
-+ (NSObject *) getNotification{
-    NSMutableDictionary *scoreParams = [NSMutableDictionary dictionary];
-    method = @"getNotification";
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getGameTotal**;
- ** gets the total for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.
- *  REQUIRED: field                         String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- **/
-+ (NSObject *) getGameTotal:(NSString *)field :(NSMutableDictionary *)scoreParams{
-    method = @"getGameTotal";
-    [scoreParams setObject:field forKey:@"field"];
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getGameLowest**;
- ** gets the lowest vaule for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.
- *  REQUIRED: field                         String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- **/
-+ (NSObject *) getGameLowest:(NSString *)field :(NSMutableDictionary *)scoreParams{
-    method = @"getGameLowest";
-    [scoreParams setObject:field forKey:@"field"];
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getGameTop**;
- ** gets the top value for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.
- *  REQUIRED: field                         String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- **/
-+ (NSObject *) getGameTop:(NSString *)field :(NSMutableDictionary *)scoreParams{
-    method = @"getGameTop";
-    [scoreParams setObject:field forKey:@"field"];
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getGameAverage**;
- ** gets the average for the following game field's bonus, gold, money, kills, lifes, time_played and unlocked_levels.
- *  REQUIRED: field                         String Value, (bonus, gold, money, kills, lifes, time_played, unlocked_levels)
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- **/
-+ (NSObject *) getGameAverage:(NSString *)field :(NSMutableDictionary *)scoreParams{
-    method = @"getGameAverage";
-    [scoreParams setObject:field forKey:@"field"];
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getPlayers**;
- ** API method lets you get all the players for a specif game.getGameField
- *  OPTIONAL: order_by                      String Value, (date or score)
- *  OPTIONAL: order                         String Value, asc or desc
- *  OPTIONAL: limit                         Number Value, the limit, "20" retrieves rows 1 - 20 | "10,20" retrieves 20 scores starting from the 10th
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: platform                      String Value, needs to match the string value that was used when creating the player
- **/
-+ (NSObject *) getPlayers:(NSMutableDictionary *)scoreParams{
-    method = @"getPlayers";
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getGameField**;
- ** method lets you pull a specific field from your game info.
- *  OPTIONAL: field                         name,short_description,description,game_type,version,levels,platform,play_url,website_url,created,updated,player_count,scores_count,locked,status,
- **/
-+ (NSObject *) getGameField:(NSMutableDictionary *)scoreParams{
-    method = @"getGameField";
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getGame**;
- ** method lets you pull all your game information.
- **/
-+ (NSObject *) getGame{
-    NSMutableDictionary *scoreParams = [NSMutableDictionary dictionary];
-    method = @"getGame";
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getPlayerScores**;
- ** method lets you pull all the scores for a player.
- *  REQUIRED: username                      String Value, the players username
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
- **/
-+ (NSObject *) getPlayerScores:(NSString *)username :(NSMutableDictionary *)scoreParams{
-    method = @"getPlayerScores";
-    [scoreParams setObject:username forKey:@"username"];
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getPlayer**;
- ** method Check if player exists and returns the player information. Post parameters work as query conditions. This method can be used for login by adding username and password parameters.
- *  OPTIONAL: id                            The players ID [String]
- *  REQUIRED: username                      String Value, the players username
- *  OPTIONAL: password                      The players password [String]
- **/
-+ (NSObject *) getPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams{
-    method = @"getPlayer";
-    [scoreParams setObject:username forKey:@"username"];
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** editPlayer**;
- ** method lets you edit your player information.
- *  REQUIRED: username                      String Value, the players username
- *  OPTIONAL: password                      The players password [String]
- *  OPTIONAL: unique_id                     Integer Value,
- *  OPTIONAL: first_name                    The players first name [String]
- *  OPTIONAL: last_name                     The players last name [String]
- *  OPTIONAL: created                       The date the player was created calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
- *  OPTIONAL: updated                       The last time the player was updated calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
- *  OPTIONAL: bonus                         The players bonus [Integer]
- *  OPTIONAL: achievements                  The players achievements [String, comma-separated]
- *  OPTIONAL: best_score                    The players best score calculated by Scoreoid [Integer]
- *  OPTIONAL: gold                          The players gold [Integer]
- *  OPTIONAL: money                         The players money [Integer]
- *  OPTIONAL: kills                         The players kills [Integer]
- *  OPTIONAL: lives                         The players lives [Integer]
- *  OPTIONAL: time_played                   The time the player played [Integer]
- *  OPTIONAL: unlocked_levels               The players unlocked levels [Integer]
- *  OPTIONAL: unlocked_items                The players unlocked items [String, comma-separated]
- *  OPTIONAL: inventory                     The players inventory [String, comma-separated]
- *  OPTIONAL: last_level                    The players last level [Integer]
- *  OPTIONAL: current_level                 The players current level [Integer]
- *  OPTIONAL: current_time                  The players current time [Integer]
- *  OPTIONAL: current_bonus                 The players current bonus [Integer]
- *  OPTIONAL: current_kills                 The players current kills [Integer]
- *  OPTIONAL: current_achievements          The players current achievements [String, comma-separated]
- *  OPTIONAL: current_gold                  The players current gold [Integer]
- *  OPTIONAL: current_unlocked_levels       The players current unlocked levels [Integer]
- *  OPTIONAL: current_unlocked_items        The players current unlocked items [String, comma-separated]
- *  OPTIONAL: current_lifes                 The players current lifes [Integer]
- *  OPTIONAL: xp                            The players XP [Integer]
- *  OPTIONAL: energy                        The players energy [Integer]
- *  OPTIONAL: boost                         The players energy [Integer]
- *  OPTIONAL: latitude                      The players GPS latitude [Integer]
- *  OPTIONAL: longitude                     The players GPS longitude [Integer]
- *  OPTIONAL: game_state                    The players game state [String]
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- **/
-+ (NSObject *) editPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams{
-    method = @"editPlayer";
-    [scoreParams setObject:username forKey:@"username"];
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** countPlayers**;
- ** method lets you count all your players.
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- **/
-+ (NSObject *) countPlayers:(NSMutableDictionary *)scoreParams{
-    method = @"countPlayers";
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** updatePlayerField**;
- ** method lets you update your player field's.
- *  REQUIRED: username                      String Value, the players username
- *  REQUIRED: field                         password,unique_id,first_name,last_name,created,updated,bonus,achievements,gold,money,kills,lives,time_played,unlocked_levels,unlocked_items,inventory,last_level,current_level,current_time,current_bonus,current_kills,current_achievements,current_gold,current_unlocked_levels,current_unlocked_items,current_lifes,xp,energy,boost,latitude,longitude,game_state,platform,
- *  REQUIRED: value                         String Value, the field value
- **/
-+ (NSObject *) updatePlayerField:(NSString *)username :(NSString *)field :(NSString *)value :(NSMutableDictionary *)scoreParams{
-    method = @"updatePlayerField";
-    [scoreParams setObject:username forKey:@"username"];
-    [scoreParams setObject:field forKey:@"field"];
-    [scoreParams setObject:value forKey:@"value"];
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** createPlayer**;
- ** method lets you create a player with a number of optional values.
- *  REQUIRED: username                      The players username [String]
- *  OPTIONAL: password                      The players password used if you would like to create user log-in [String]
- *  OPTIONAL: score                         Integer Value
- *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
- *  OPTIONAL: unique_id                     Integer Value,
- *  OPTIONAL: first_name                    The players first name [String]
- *  OPTIONAL: last_name                     The players last name [String]
- *  OPTIONAL: created                       The date the player was created calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
- *  OPTIONAL: updated                       The last time the player was updated calculated by Scoreoid [YYYY-MM-DD hh:mm:ss]
- *  OPTIONAL: bonus                         The players bonus [Integer]
- *  OPTIONAL: achievements                  The players achievements [String, comma-separated]
- *  OPTIONAL: best_score                    The players best score calculated by Scoreoid [Integer]
- *  OPTIONAL: gold                          The players gold [Integer]
- *  OPTIONAL: money                         The players money [Integer]
- *  OPTIONAL: kills                         The players kills [Integer]
- *  OPTIONAL: lives                         The players lives [Integer]
- *  OPTIONAL: time_played                   The time the player played [Integer]
- *  OPTIONAL: unlocked_levels               The players unlocked levels [Integer]
- *  OPTIONAL: unlocked_items                The players unlocked items [String, comma-separated]
- *  OPTIONAL: inventory                     The players inventory [String, comma-separated]
- *  OPTIONAL: last_level                    The players last level [Integer]
- *  OPTIONAL: current_level                 The players current level [Integer]
- *  OPTIONAL: current_time                  The players current time [Integer]
- *  OPTIONAL: current_bonus                 The players current bonus [Integer]
- *  OPTIONAL: current_kills                 The players current kills [Integer]
- *  OPTIONAL: current_achievements          The players current achievements [String, comma-separated]
- *  OPTIONAL: current_gold                  The players current gold [Integer]
- *  OPTIONAL: current_unlocked_levels       The players current unlocked levels [Integer]
- *  OPTIONAL: current_unlocked_items        The players current unlocked items [String, comma-separated]
- *  OPTIONAL: current_lifes                 The players current lifes [Integer]
- *  OPTIONAL: xp                            The players XP [Integer]
- *  OPTIONAL: energy                        The players energy [Integer]
- *  OPTIONAL: boost                         The players energy [Integer]
- *  OPTIONAL: latitude                      The players GPS latitude [Integer]
- *  OPTIONAL: longitude                     The players GPS longitude [Integer]
- *  OPTIONAL: game_state                    The players game state [String]
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- **/
-+ (NSObject *) createPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams{
-    method = @"createPlayer";
-    [scoreParams setObject:username forKey:@"username"];
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** countBestScores**;
- ** method lets you count all your game best scores.
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
- **/
-+ (NSObject *) countBestScores:(NSMutableDictionary *)scoreParams{
-    method = @"countBestScores";
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getAverageScore**;
- ** method lets you get all your game average scores.
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
- **/
-+ (NSObject *) getAverageScore:(NSMutableDictionary *)scoreParams{
-    method = @"getAverageScore";
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getBestScores**;
- ** method lets you get all your games best scores.
- *  OPTIONAL: order_by                      String Value, (date or score)
- *  OPTIONAL: order                         String Value, asc or desc
- *  OPTIONAL: limit                         Number Value, the limit, "20" retrieves rows 1 - 20 | "10,20" retrieves 20 scores starting from the 10th
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
- **/
-+ (NSObject *) getBestScores:(NSMutableDictionary *)scoreParams{
-    method = @"getBestScores";
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** countScores**;
- ** method lets you count all your game scores.
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
- **/
-+ (NSObject *) countScores:(NSMutableDictionary *)scoreParams{
-    method = @"countScores";
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** getScores**;
- ** method lets you pull all your game scores.
- *  OPTIONAL: order_by                      String Value, (date or score)
- *  OPTIONAL: order                         String Value, asc or desc
- *  OPTIONAL: limit                         Number Value, the limit, "20" retrieves rows 1 - 20 | "10,20" retrieves 20 scores starting from the 10th
- *  OPTIONAL: start_date                    String Value, YYY-MM-DD format
- *  OPTIONAL: end_date                      String Value, YYY-MM-DD format
- *  OPTIONAL: platform                      The players platform needs to match the string value that was used when creating the player
- *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don't use 0 as it's the default value)
- **/
-+ (NSObject *) getScores:(NSMutableDictionary *)scoreParams{
-    method = @"getScores";
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
-/*
- ** createScore**;
- ** method lets you create a user score.
- *  REQUIRED: username                      String Value, if user does not exist it well be created
- *  REQUIRED: score                         Integer Value,
- *  OPTIONAL: platform                      String Value,
- *  OPTIONAL: unique_id                     Integer Value,
- *  OPTIONAL: difficulty                    Integer Value, between 1 to 10 (don\t use 0 as it's the default value)
- **/
-+ (NSObject *) createScore:(NSString *)username :(NSString *)score :(NSMutableDictionary *)scoreParams{
-    method = @"createScore";
-    [scoreParams setObject:username forKey:@"username"];
-    [scoreParams setObject:score forKey:@"score"];
-    NSObject* result=[scoreBoard send:scoreParams params:method];
-    return result;
-}
 @end

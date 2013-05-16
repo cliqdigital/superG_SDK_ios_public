@@ -15,7 +15,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ThumbrReachability.h"
 
-
 ThumbrReachability* thumbrReachability;
 
 @implementation PortalViewController
@@ -328,7 +327,7 @@ ThumbrReachability* thumbrReachability;
     if ([instance.accessToken length] > 0) {
         NSString * url = [NSString stringWithFormat:@"%@access_token=%@",profileAccesUrlPath, instance.accessToken];
         
-//        NSLog(@"getting profile with url: %@", [url description]);
+        NSLog(@"getting profile with url: %@", [url description]);
 
         [self requestUrl:[NSURL URLWithString: url] withServiceName:@"GET_PROFILE"];
     }
@@ -548,6 +547,7 @@ ThumbrReachability* thumbrReachability;
     [super dealloc];
 }
 - (void)viewDidUnload {
+    NSLog(@"hiep hiep hoera");
     [closeButton release];
     closeButton = nil;
     [versionLabel release];

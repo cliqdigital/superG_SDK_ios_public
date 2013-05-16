@@ -13,10 +13,8 @@
 		B8E189EE15988DE1002487B3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8E189EC15988DE1002487B3 /* InfoPlist.strings */; };
 		B8E189F015988DE1002487B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E189EF15988DE1002487B3 /* main.m */; };
 		B8E189F415988DE1002487B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E189F315988DE1002487B3 /* AppDelegate.m */; };
-		B8E189F715988DE1002487B3 /* ViewController.m in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E189F615988DE1002487B3 /* ViewController.m */; };
 		B8E18A0915988F91002487B3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E18A0815988F91002487B3 /* CFNetwork.framework */; };
 		B8E18A0B15988FD1002487B3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E18A0A15988FD1002487B3 /* SystemConfiguration.framework */; };
-		BB0589CD165D018E00819790 /* Thumbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B53594C1647AC6600763206 /* Thumbr.framework */; };
 		BB0589D2165D1BD800819790 /* Thumbr_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0589D1165D1BD800819790 /* Thumbr_logo.png */; };
 		BB0589D4165D1BDB00819790 /* Thumbr_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0589D3165D1BDB00819790 /* Thumbr_logo@2x.png */; };
 		BB0589DA165D1E6800819790 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0589D9165D1E6800819790 /* Default.png */; };
@@ -33,13 +31,21 @@
 		BB7F512F168373CB0080C773 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB7F512D168373CB0080C773 /* ViewController_iPhone.xib */; };
 		BB8FAF30165FA49900740205 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8FAF2F165FA49900740205 /* logo.png */; };
 		BB8FAF9E166379B600740205 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8FAF9D166379B600740205 /* Default-568h@2x.png */; };
+		BBAB489C17044E3800F7F71C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E189F615988DE1002487B3 /* ViewController.m */; };
+		BBAE1639170B430300D77F52 /* MadsSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAE1638170B430300D77F52 /* MadsSDK.framework */; };
+		BBAE163B170B432500D77F52 /* Thumbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAE163A170B432500D77F52 /* Thumbr.framework */; };
 		BBBD201D169ACE14006B38FB /* background@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBD2019169ACE14006B38FB /* background@2x~ipad.png */; };
+		BBD814B61700A2710058DD2B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B01700A2710058DD2B /* AdSupport.framework */; };
+		BBD814B71700A2710058DD2B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B11700A2710058DD2B /* CoreLocation.framework */; };
+		BBD814B81700A2710058DD2B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B21700A2710058DD2B /* CoreTelephony.framework */; };
+		BBD814B91700A2710058DD2B /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B31700A2710058DD2B /* EventKit.framework */; };
+		BBD814BA1700A2710058DD2B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B41700A2710058DD2B /* MediaPlayer.framework */; };
+		BBD814BB1700A2710058DD2B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B51700A2710058DD2B /* MessageUI.framework */; };
 		BBD9E7171663BE9F0096E648 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD9E7161663BE9F0096E648 /* libAppsFlyerLib.a */; };
 		BBDF9EDF16B2AA6600BA33B2 /* LRResty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDF9EDE16B2AA6600BA33B2 /* LRResty.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4B53594C1647AC6600763206 /* Thumbr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Thumbr.framework; path = "../SDK/output/Debug-universal/Thumbr.framework"; sourceTree = "<group>"; };
 		B8E189DF15988DE1002487B3 /* TestSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8E189E315988DE1002487B3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B8E189E515988DE1002487B3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -71,7 +77,15 @@
 		BB8F0FDF16B6CA09003802B5 /* scoreExamples.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scoreExamples.txt; sourceTree = "<group>"; };
 		BB8FAF2F165FA49900740205 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		BB8FAF9D166379B600740205 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		BBAE1638170B430300D77F52 /* MadsSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MadsSDK.framework; sourceTree = "<group>"; };
+		BBAE163A170B432500D77F52 /* Thumbr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Thumbr.framework; path = "../SDK/output/Debug-universal/Thumbr.framework"; sourceTree = "<group>"; };
 		BBBD2019169ACE14006B38FB /* background@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x~ipad.png"; sourceTree = "<group>"; };
+		BBD814B01700A2710058DD2B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		BBD814B11700A2710058DD2B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BBD814B21700A2710058DD2B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		BBD814B31700A2710058DD2B /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		BBD814B41700A2710058DD2B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		BBD814B51700A2710058DD2B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BBD9E7141663BE880096E648 /* AppsFlyer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppsFlyer.h; sourceTree = "<group>"; };
 		BBD9E7161663BE9F0096E648 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = TestSDK/libAppsFlyerLib.a; sourceTree = "<group>"; };
 		BBDF9EDE16B2AA6600BA33B2 /* LRResty.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LRResty.framework; sourceTree = "<group>"; };
@@ -82,8 +96,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8E189F715988DE1002487B3 /* ViewController.m in Frameworks */,
-				BB0589CD165D018E00819790 /* Thumbr.framework in Frameworks */,
+				BBD814B61700A2710058DD2B /* AdSupport.framework in Frameworks */,
+				BBD814B71700A2710058DD2B /* CoreLocation.framework in Frameworks */,
+				BBD814B81700A2710058DD2B /* CoreTelephony.framework in Frameworks */,
+				BBD814B91700A2710058DD2B /* EventKit.framework in Frameworks */,
+				BBD814BA1700A2710058DD2B /* MediaPlayer.framework in Frameworks */,
+				BBD814BB1700A2710058DD2B /* MessageUI.framework in Frameworks */,
 				B8E18A0B15988FD1002487B3 /* SystemConfiguration.framework in Frameworks */,
 				B8E18A0915988F91002487B3 /* CFNetwork.framework in Frameworks */,
 				B8E189E415988DE1002487B3 /* UIKit.framework in Frameworks */,
@@ -91,6 +109,8 @@
 				B8E189E815988DE1002487B3 /* CoreGraphics.framework in Frameworks */,
 				BBD9E7171663BE9F0096E648 /* libAppsFlyerLib.a in Frameworks */,
 				BBDF9EDF16B2AA6600BA33B2 /* LRResty.framework in Frameworks */,
+				BBAE1639170B430300D77F52 /* MadsSDK.framework in Frameworks */,
+				BBAE163B170B432500D77F52 /* Thumbr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +132,12 @@
 		B8E189D415988DE1002487B3 = {
 			isa = PBXGroup;
 			children = (
+				BBD814B01700A2710058DD2B /* AdSupport.framework */,
+				BBD814B11700A2710058DD2B /* CoreLocation.framework */,
+				BBD814B21700A2710058DD2B /* CoreTelephony.framework */,
+				BBD814B31700A2710058DD2B /* EventKit.framework */,
+				BBD814B41700A2710058DD2B /* MediaPlayer.framework */,
+				BBD814B51700A2710058DD2B /* MessageUI.framework */,
 				BB1F73BA1667AC310006F0B6 /* Thumbr-iPad.bundle */,
 				BB1F73BB1667AC310006F0B6 /* Thumbr-iPhone.bundle */,
 				BBD9E7161663BE9F0096E648 /* libAppsFlyerLib.a */,
@@ -145,8 +171,9 @@
 		B8E189E215988DE1002487B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BBAE163A170B432500D77F52 /* Thumbr.framework */,
+				BBAE1638170B430300D77F52 /* MadsSDK.framework */,
 				BBDF9EDE16B2AA6600BA33B2 /* LRResty.framework */,
-				4B53594C1647AC6600763206 /* Thumbr.framework */,
 				B8E18A0A15988FD1002487B3 /* SystemConfiguration.framework */,
 				B8E18A0815988F91002487B3 /* CFNetwork.framework */,
 				B8E189E315988DE1002487B3 /* UIKit.framework */,
@@ -205,7 +232,7 @@
 		B8E189D615988DE1002487B3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = B8E189D915988DE1002487B3 /* Build configuration list for PBXProject "TestSDK" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -259,6 +286,7 @@
 			files = (
 				B8E189F015988DE1002487B3 /* main.m in Sources */,
 				B8E189F415988DE1002487B3 /* AppDelegate.m in Sources */,
+				BBAB489C17044E3800F7F71C /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +312,10 @@
 					armv6,
 					armv7,
 				);
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Henri de Mooij (6U35DYLRPT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Henri de Mooij (6U35DYLRPT)";
 				COPY_PHASE_STRIP = NO;
@@ -295,6 +327,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -315,10 +348,15 @@
 					armv6,
 					armv7,
 				);
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Henri de Mooij (6U35DYLRPT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Henri de Mooij (6U35DYLRPT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -350,6 +388,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestSDK/TestSDK-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "TestSDK/TestSDK-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
@@ -385,6 +424,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestSDK/TestSDK-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "TestSDK/TestSDK-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (

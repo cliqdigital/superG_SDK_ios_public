@@ -2,19 +2,18 @@
 //  Thumbr.h
 //  Thumbr
 //
-//  Created by aiso haikens on 28-02-12.
-//  Updated by Stephnie Mossel ;)
-//  Copyright (c) 2012 ideesoft.nl. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#define VERSION @"2.0.22"
+#import <MadsSDK/MadsSDK.h>
+
+#define VERSION @"2.0.31"
 
 #pragma mark - keys for settings
 extern NSString* ThumbrSettingPresentationWindow;
+extern NSString* ThumbrSettingStatusBarHidden;
 extern NSString* ThumbrSettingPortalOrientation;
-extern NSString* ThumbrSettingScoreGameID;
+//extern NSString* ThumbrSettingScoreGameID;
 extern NSString* ThumbrSettingRegisterUrl;
 extern NSString* ThumbrSettingSwitchUrl;
 extern NSString* ThumbrSettingPortalUrl;
@@ -33,9 +32,14 @@ NSString* method;
 #pragma mark - ThumbrSDKDelegate protocol
 @protocol ThumbrSDKDelegate <NSObject>
 - (void) thumbrSDK:(Thumbr*) sdk didLoginUser:(ThumbrUser*) user;
+
 @optional
 - (void) closedSDKPortalView;
-- (void) scoreCallback:(NSString *)method method:(NSObject *)parsedData;
+- (void) animateAdIn:(id)sender;
+- (void) animateAdOut:(id)sender;
+
+//- (void) scoreCallback:(NSString *)method method:(NSObject *)parsedData;
+
 @end
 
 #pragma mark ThumbrUser object
@@ -47,7 +51,8 @@ NSString* method;
 
 @end
 
-@interface Thumbr : NSObject
+
+@interface Thumbr : UIViewController
 
 #pragma mark - init Thumbr SDK
 + (void) initializeSDKWithSettings: (NSDictionary*) settings andDelegate: (id)delegate;
@@ -64,52 +69,51 @@ NSString* method;
 + (void) setAction:(NSString*)action;
 + (NSString *) getAction;
 + (UIButton *)loadThumbrT:(float)relativeSize relativeSize:(NSString *)position;
-
++ (void) stop;
 + (void) resume;
++ (NSString *) statusBarHidden;
+//+ (void) openScores;
+//+ (void) synchronizeScores;
+//+ (NSObject *) getNotification;
 
-+ (void) openScores;
-+ (void) synchronizeScores;
-+ (NSObject *) getNotification;
-
-+ (NSObject *) getGameTotal:(NSString *)field :(NSMutableDictionary *)scoreParams;
-+ (NSObject *) getGameLowest:(NSString *)field :(NSMutableDictionary *)scoreParams;
-+ (NSObject *) getGameTop:(NSString *)field :(NSMutableDictionary *)scoreParams;
-+ (NSObject *) getGameAverage:(NSString *)field :(NSMutableDictionary *)scoreParams;
-+ (NSObject *) getPlayers:(NSMutableDictionary *)scoreParams;
-+ (NSObject *) getGameField:(NSMutableDictionary *)scoreParams;
-+ (NSObject *) getGame;
-+ (NSObject *) getPlayerScores:(NSString *)username :(NSMutableDictionary *)scoreParams;
-+ (NSObject *) getPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams;
-+ (NSObject *) editPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams;
-+ (NSObject *) countPlayers:(NSMutableDictionary *)scoreParams;
-+ (NSObject *) updatePlayerField:(NSString *)username :(NSString *)field :(NSString *)value :(NSMutableDictionary *)scoreParams;
-+ (NSObject *) createPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams;
-+ (NSObject *) countBestScores:(NSMutableDictionary *)scoreParams;
-+ (NSObject *) getAverageScore:(NSMutableDictionary *)scoreParams;
-+ (NSObject *) getBestScores:(NSMutableDictionary *)scoreParams;
-+ (NSObject *) countScores:(NSMutableDictionary *)scoreParams;
-+ (NSObject *) getScores:(NSMutableDictionary *)scoreParams;
-+ (NSObject *) createScore:(NSString *)username :(NSString *)score :(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) getGameTotal:(NSString *)field :(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) getGameLowest:(NSString *)field :(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) getGameTop:(NSString *)field :(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) getGameAverage:(NSString *)field :(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) getPlayers:(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) getGameField:(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) getGame;
+//+ (NSObject *) getPlayerScores:(NSString *)username :(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) getPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) editPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) countPlayers:(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) updatePlayerField:(NSString *)username :(NSString *)field :(NSString *)value :(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) createPlayer:(NSString *)username :(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) countBestScores:(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) getAverageScore:(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) getBestScores:(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) countScores:(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) getScores:(NSMutableDictionary *)scoreParams;
+//+ (NSObject *) createScore:(NSString *)username :(NSString *)score :(NSMutableDictionary *)scoreParams;
 
 #pragma mark - url path definitions (USER ACCEPTANCE TESTING)
-#define AuthorizationUrlPath_UAT            @"http://gasp.dev.thumbr.com/auth/authorize?"
-#define AccesTokenValidationUrlPath_UAT     @"http://gasp.dev.thumbr.com/auth/validate?"
-#define profileAccesUrlPath_UAT             @"http://gasp.dev.thumbr.com/api/v1/profile?"
-#define portalUrlPath_UAT                   @"http://m.dev.thumbr.com?"
+#define AuthorizationUrlPath_UAT            @"https://gasp-dev.thumbr.com/auth/authorize?"
+#define AccesTokenValidationUrlPath_UAT     @"https://gasp-dev.thumbr.com/auth/validate?"
+#define profileAccesUrlPath_UAT             @"https://gasp-dev.thumbr.com/api/v1/profile?"
+#define portalUrlPath_UAT                   @"https://m-dev.thumbr.com?"
 
 #pragma mark - url path definitions (STAGING)
-#define AuthorizationUrlPath_STAGING            @"http://gasp.staging.thumbr.com/auth/authorize?"
-#define AccesTokenValidationUrlPath_STAGING     @"http://gasp.staging.thumbr.com/auth/validate?"
-#define profileAccesUrlPath_STAGING             @"http://gasp.staging.thumbr.com/api/v1/profile?"
-#define portalUrlPath_STAGING                   @"http://m.staging.thumbr.com?"
+#define AuthorizationUrlPath_STAGING            @"https://gasp-staging.thumbr.com/auth/authorize?"
+#define AccesTokenValidationUrlPath_STAGING     @"https://gasp-staging.thumbr.com/auth/validate?"
+#define profileAccesUrlPath_STAGING             @"https://gasp-staging.thumbr.com/api/v1/profile?"
+#define portalUrlPath_STAGING                   @"https://m-staging.thumbr.com?"
 
 #pragma mark - url path definitions (PRODUCTION)
 #define AuthorizationUrlPath            @"https://gasp.thumbr.com/auth/authorize?"
 #define AccesTokenValidationUrlPath    @"https://gasp.thumbr.com/auth/validate?"
 #define profileAccesUrlPath             @"https://gasp.thumbr.com/api/v1/profile?"
 #define portalUrlPath                   @"https://m.thumbr.com/?"
-
-
+#define adUrl                   @"https://ads.thumbr.com/adserver/?"
 
 #define REGISTERED      1
 #define UNREGISTERED    0

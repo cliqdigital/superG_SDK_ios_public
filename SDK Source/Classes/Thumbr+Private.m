@@ -17,7 +17,7 @@
 
 //retrieve the uid, username and status from the profile
 - (void) setThumbrUserWithProfile:(NSDictionary *)profile
-{   
+{
     [self setUid:[profile valueForKey:@"id"]];
     [self setUsername:[profile valueForKey:@"username"]];
     
@@ -61,7 +61,7 @@
         sInstance = [[Thumbr alloc] init];
     }
     
-    return sInstance;    
+    return sInstance;
 }
 
 #pragma mark - Image loading
@@ -91,6 +91,8 @@
 
 
 #pragma mark - delegate methods
+
+
 //convert the profile to ThumbrUser data and send to delegate (the game)
 + (void) receivedProfile:(NSDictionary *)profile
 {
@@ -99,15 +101,34 @@
     ThumbrUser* user = [[ThumbrUser alloc] init];
     [user setThumbrUserWithProfile:profile];
     
+    NSMutableDictionary* settings = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"ThumbrUser"]];
+    if([[profile valueForKey:@"address"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"address"] forKey: @"address"];}
+    if([[profile valueForKey:@"city"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"city"] forKey: @"city"];}
+    if([[profile valueForKey:@"country"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"country"] forKey: @"country"];}
+    if([[profile valueForKey:@"email"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"email"] forKey: @"email"];}
+    if([[profile valueForKey:@"firstname"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"firstname"] forKey: @"firstname"];}
+    if([[profile valueForKey:@"id"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"id"] forKey: @"id"];}
+    if([[profile valueForKey:@"locale"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"locale"] forKey: @"locale"];}
+    if([[profile valueForKey:@"msisdn"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"msisdn"] forKey: @"msisdn"];}
+    if([[profile valueForKey:@"newsletter"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"newsletter"] forKey: @"newsletter"];}
+    if([[profile valueForKey:@"status"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"status"] forKey: @"status"];}
+    if([[profile valueForKey:@"surname"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"surname"] forKey: @"surname"];}
+    if([[profile valueForKey:@"username"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"username"] forKey: @"username"];}
+    if([[profile valueForKey:@"zipcode"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"zipcode"] forKey: @"zipcode"];}
+    if([[profile valueForKey:@"gender"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"gender"] forKey: @"gender"];}
+    if([[profile valueForKey:@"date_of_birth"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"date_of_birth"] forKey: @"date_of_birth"];}
+    if([[profile valueForKey:@"housenr"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"housenr"] forKey: @"housenr"];}
+    [[NSUserDefaults standardUserDefaults] setObject: settings forKey: @"ThumbrUser"];
+    NSLog(@"profile %@",profile);
     //Send user information to delegate (game)
     [instance.delegate thumbrSDK:instance didLoginUser: user];
 }
 
-+ (void) scoreCallback:(NSString *)method method:(NSObject *)parsedData
-{
-    Thumbr* instance = [Thumbr instance];
-    [instance.delegate scoreCallback:method method:parsedData];
-}
+//+ (void) scoreCallback:(NSString *)method method:(NSObject *)parsedData
+//{
+//    Thumbr* instance = [Thumbr instance];
+//    [instance.delegate scoreCallback:method method:parsedData];
+//}
 
 //let the (game) delegate know that the portalview is closed
 + (void) closedThumbrPortal
@@ -117,7 +138,14 @@
     [instance.delegate closedSDKPortalView];
 }
 
-
++ (void) sendAnimateAdIn:(id)sender{
+    Thumbr* instance = [Thumbr instance];
+    [instance.delegate animateAdIn:sender];
+}
++ (void) sendAnimateAdOut:(id)sender{
+    Thumbr* instance = [Thumbr instance];
+    [instance.delegate animateAdOut:sender];
+}
 
 #pragma mark - save/get settings
 + (void) saveAccesToken: (NSString*)accessToken
@@ -128,7 +156,7 @@
     
     //store accessToken in authorization settings
     [authorization setValue: accessToken forKey:@"access_token"];
-
+    
     //store the authorization settings in the userdefaults
     [settings setValue: authorization forKey: @"authorization"];
     [[NSUserDefaults standardUserDefaults] setObject: settings forKey: @"ThumbrSettings"];
@@ -171,11 +199,12 @@
     Thumbr* instance = [Thumbr instance];
     if(instance.portalOrientation == 3 || instance.portalOrientation == 4){
         view.center = center;
-    }                    [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationPortrait];                    
+        [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationPortrait];
+    }
 }
 
 - (void)transformViewsToOrientation:(UIDeviceOrientation)orientation {
-
+    
     UIView* portalview = [self.presentationWindow viewWithTag:PORTALVIEWTAG];
     if (portalview) {
         [self transformView:portalview toOrientation:orientation forCenter:[self.portalCenter CGPointValue]];
@@ -192,7 +221,7 @@
             switch (no) {
                 case UIDeviceOrientationPortrait:
                     o = no;
-                    [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationPortrait];                    
+                    [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationPortrait];
                     break;
                 default: break;
             }
@@ -210,7 +239,7 @@
                 default: break;
             }
         }
-
+        
     }
     [self transformViewsToOrientation:o];
 }
@@ -218,22 +247,22 @@
 - (void)didRotate:(NSNotification *)notification {
     Thumbr* instance = [Thumbr instance];
     UIDeviceOrientation o = [[UIDevice currentDevice] orientation];
-        if(instance.portalOrientation == 1 || instance.portalOrientation ==2){
-    switch (o) {
-        case UIDeviceOrientationPortrait:
-            [self handleRotation];
-            break;
-        default: break;
-    }
+    if(instance.portalOrientation == 1 || instance.portalOrientation ==2){
+        switch (o) {
+            case UIDeviceOrientationPortrait:
+                [self handleRotation];
+                break;
+            default: break;
+        }
     }
     else{
         switch (o) {
-                case UIDeviceOrientationLandscapeLeft:
-                case UIDeviceOrientationLandscapeRight:
-                    [self handleRotation];
-                    break;
-                default: break;
-                }
+            case UIDeviceOrientationLandscapeLeft:
+            case UIDeviceOrientationLandscapeRight:
+                [self handleRotation];
+                break;
+            default: break;
+        }
     }
 }
 

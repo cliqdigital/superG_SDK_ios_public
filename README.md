@@ -16,6 +16,21 @@ Revision history
 ----------------
 <table>
 	<tr>
+		<td>2.0.31</td>
+		<td>
+		-Personalized Ad serving support<br />
+		-Technical updates
+		</td>
+	</tr>
+	<tr>
+		<td>2.0.3</td>
+		<td>
+		-Ad serving support<br />
+		-SSL support<br />
+		-Technical updates
+		</td>
+	</tr>
+	<tr>
 		<td>2.0.22</td>
 		<td>
 		-Fixed memory leaks, improved memory clean up<br />
