@@ -347,8 +347,27 @@ Add
 to the 'Other linker flags' in (your project)->Build Settings->Linking
 
 Make sure that the following frameworks are included in your Build Phases->Link Binaries With Libraries:
-	• CoreGraphics 	• Foundation 	• SystemConfiguration 	• UIKit 	• Thumbr
 
+Frameworks:
+	• CoreGraphics 	• Foundation 	• SystemConfiguration 	• UIKit 	• Thumbr
+	• AdSupport
+	• CoreLocation
+	• CoreTelephony
+	• EventKit
+	• MediaPlayer
+	• MessageUI
+	• SystemConfiguration
+	• CFNetwork
+	• UIKit
+	• Foundation
+	• CoreGraphics
+Vendor libraries:
+	
+	• libAppsFlyerLib.a
+	• LRResty
+	• MadsSDK
+	• Thumbr
+	
 •  REMARKS
 -
 If your application has the status bar enabled, the Thumbr close button will not be visible.
