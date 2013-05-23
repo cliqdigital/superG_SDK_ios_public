@@ -1,16 +1,6 @@
-#Thumbr SDK iOS
+#SuperG SDK for iOS
 ===============
 
-You develop a cool game, we do the rest
-=======================================
-Millions of gamers and one worldwide SDK, GROW YOUR BUSINESS AND GET STARTED. 
-Monetize your game with more than just ITEM SALES, boost revenue and expand your userbase. Connect with thumbr to get unique user IDs, social features, advertising options, fun features, client relationship management with high-engaged, Average Revenue Per User players worldwide!
-Of course all with realtime statistics on your game.
-
-Apply for a Thumbr developer account
-------------------------------------
-To apply for a Thumbr developer account for your game, please visit:
-<a target="_blank" href="http://cliqdigital.com/developers#one-sdk">http://cliqdigital.com/developers#one-sdk</a>
 
 Revision history
 ----------------
