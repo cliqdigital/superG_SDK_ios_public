@@ -14,9 +14,9 @@
 @synthesize viewController = _viewController;
 
 //SETTINGS
-NSString *const sid = @"545596675";
-NSString *const client_id = @"84758475-476574";
-NSString *const appsflyerNotifyAppID = @"581922294;9ngR4oQcH5qz7qxcFb7ftd";
+NSString *const sid = @"";
+NSString *const client_id = @"";
+NSString *const appsflyerNotifyAppID = @"";
 NSString *const scoreGameID = @"";
 
 NSString *const registerUrl = @"https://gasp.thumbr.com/auth/authorize?";
@@ -35,16 +35,19 @@ NSString *const locale = @"";
 #define showCloseButtonTime @"6"//Number of seconds before the Ad close button appears
 #define iPad_Inline_zoneid @"0337178053"
 #define iPad_Inline_secret @"F0B4E489B0CFC0BB"
+#define iPad_Inline_square_zoneid @"3336754051"
+#define iPad_Inline_square_secret @"874A4100056D61D6"
 #define iPad_Overlay_zoneid @"8336743053"
 #define iPad_Overlay_secret @"BEF5D9D4D3E9B3CC"
 #define iPad_Interstitial_zoneid @"0336739057"
 #define iPad_Interstitial_secret @"DA018F2094E8189C"
-#define iPhone_Inline_zoneid @"5383077054"
-#define iPhone_Inline_secret @"C9AC24EF9CB18FFD"
-#define iPhone_Overlay_zoneid @"8383057050"
-#define iPhone_Overlay_secret @"A2E465BF955D25A5"
-#define iPhone_Interstitial_zoneid @"8383057050"
-#define iPhone_Interstitial_secret @"A2E465BF955D25A5"
+#define iPhone_Inline_zoneid @"3327876051"
+#define iPhone_Inline_secret @"5AC993C91380875B"
+#define iPhone_Overlay_zoneid @"0335449053"
+#define iPhone_Overlay_secret @"9CD3FF68A812A11F"
+#define iPhone_Interstitial_zoneid @"7383066058"
+#define iPhone_Interstitial_secret @"96F0B0238796CBE5"
+
 
 
 //init score variables
@@ -147,6 +150,7 @@ NSObject *scoreOutput;
 
 - (void) closedSDKPortalView
 {
+    
     NSLog(@"The Game was notified about the closing PortalView");
 }
 
@@ -154,6 +158,11 @@ NSObject *scoreOutput;
     
     NSDictionary *adSettings = [NSDictionary dictionaryWithObjectsAndKeys:showCloseButtonTime,@"showCloseButtonTime",autocloseInterstitialTime ,@"autocloseInterstitialTime",iPad_Inline_zoneid,@"iPad_Inline_zoneid",iPad_Inline_secret,@"iPad_Inline_secret",iPad_Overlay_zoneid,@"iPad_Overlay_zoneid",iPad_Overlay_secret,@"iPad_Overlay_secret",iPad_Interstitial_zoneid,@"iPad_Interstitial_zoneid",iPad_Interstitial_secret,@"iPad_Interstitial_secret",iPhone_Inline_zoneid,@"iPhone_Inline_zoneid",iPhone_Inline_secret,@"iPhone_Inline_secret",iPhone_Overlay_zoneid,@"iPhone_Overlay_zoneid",iPhone_Overlay_secret,@"iPhone_Overlay_secret",iPhone_Interstitial_zoneid,@"iPhone_Interstitial_zoneid",iPhone_Interstitial_secret,@"iPhone_Interstitial_secret",updateTimeInterval,@"updateTimeInterval", nil];
     return adSettings;
+}
+
+
+- (void) interstitialClosed:(id)sender{
+    NSLog(@"Interstitial or overlay advertisement has closed. You can resume the game, if you paused it for the interstitial / overlay");
 }
 
 - (void) animateAdIn:(id)sender{
@@ -175,7 +184,7 @@ NSObject *scoreOutput;
         float height = frame.size.height;
         adViewFrame.origin.y = frameheight-height;
     }
-
+    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
     [UIView setAnimationDelay:1.0];

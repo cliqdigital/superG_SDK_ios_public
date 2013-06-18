@@ -146,6 +146,11 @@
     Thumbr* instance = [Thumbr instance];
     [instance.delegate animateAdOut:sender];
 }
++ (void) sendInterstitialClosed:(id)sender{
+    Thumbr* instance = [Thumbr instance];
+    [instance.delegate interstitialClosed:sender];
+}
+
 
 #pragma mark - save/get settings
 + (void) saveAccesToken: (NSString*)accessToken
@@ -168,8 +173,8 @@
     NSMutableDictionary* settings = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"ThumbrSettings"]];
     NSMutableDictionary* authorization = [NSMutableDictionary dictionaryWithDictionary:[settings objectForKey: @"authorization"]];
     //get access token
-    NSString* accessToken = [authorization valueForKey:@"access_token"];
-    
+    NSString* accessToken = [NSString stringWithFormat:@"%@", [authorization valueForKey:@"access_token"]];;
+
     return accessToken;
 }
 
@@ -199,7 +204,7 @@
     Thumbr* instance = [Thumbr instance];
     if(instance.portalOrientation == 3 || instance.portalOrientation == 4){
         view.center = center;
-        [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationPortrait];
+        //[[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationPortrait];
     }
 }
 
@@ -221,7 +226,7 @@
             switch (no) {
                 case UIDeviceOrientationPortrait:
                     o = no;
-                    [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationPortrait];
+                    //[[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationPortrait];
                     break;
                 default: break;
             }
@@ -229,11 +234,11 @@
         else{
             switch (no) {
                 case UIDeviceOrientationLandscapeLeft:
-                    [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationLandscapeLeft];
+                    //[[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationLandscapeLeft];
                     o = no;
                     break;
                 case UIDeviceOrientationLandscapeRight:
-                    [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationLandscapeRight];
+                    //[[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationLandscapeRight];
                     o = no;
                     break;
                 default: break;

@@ -133,6 +133,14 @@ ThumbrReachability* thumbrReachability;
 
 #pragma mark - init Thumbr SDK
 
+
++ (void) initializeSDKForAdsOnly
+{
+    [MadsAdServer startWithLocationEnabled:YES withLocationPurpose:NSLocalizedString(@"", nil) withAppTargetingEnabled:YES];
+    [AdViewController getAdSettings];
+    
+}
+
 + (void) initializeSDKWithSettings: (NSDictionary*)_settings andDelegate: (id)_delegate;
 {
 
@@ -261,22 +269,31 @@ ThumbrReachability* thumbrReachability;
     Thumbr* instance = [Thumbr instance];
     instance.currentUrl = url;
     UIView* portalview = [instance.presentationWindow viewWithTag:PORTALVIEWTAG];
+    NSString *viewname;
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSInteger hideThumbrCloseButton = [prefs integerForKey:@"hideThumbrCloseButton"];
+
+    NSString *noClose;
+    if(hideThumbrCloseButton == 1){NSLog(@"The SDK SHOULD open without a close button....");
+        noClose = @"_noClose";
+    }else {
+        noClose = @"";    
+    }
     if (!portalview) {
         if(instance.portalOrientation==1||instance.portalOrientation==2){
 //PORTRAIT
-            NSString *viewname;
             CGSize screenSize = [[UIScreen mainScreen] bounds].size;
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
                 if (screenSize.height > 480.0f) {
                     /*Do iPhone 5 stuff here.*/
-            viewname=@"PortalView_portrait_iphone5";
+            viewname = [NSMutableString stringWithFormat:@"PortalView_portrait_iphone5%@",noClose];
                 } else {
                     /*Do iPhone Classic stuff here.*/
-            viewname=@"PortalView_portrait";
+            viewname = [NSMutableString stringWithFormat:@"PortalView_portrait%@",noClose];
                 }
             } else {
                 /*Do iPad stuff here.*/
-            viewname=@"PortalView_portrait";                
+            viewname = [NSMutableString stringWithFormat:@"PortalView_portrait%@",noClose];
             }
             
             PortalViewController* vc = [[[PortalViewController alloc] initWithNibName: viewname bundle: [Thumbr getResourceBundle]] autorelease];
@@ -291,7 +308,8 @@ ThumbrReachability* thumbrReachability;
             instance.portalViewController = vc;
         }else{
 //LANDSCAPE
-            PortalViewController* vc = [[[PortalViewController alloc] initWithNibName: @"PortalView" bundle: [Thumbr getResourceBundle]] autorelease];
+            viewname = [NSMutableString stringWithFormat:@"PortalView%@",noClose];
+            PortalViewController* vc = [[[PortalViewController alloc] initWithNibName: viewname bundle: [Thumbr getResourceBundle]] autorelease];
             instance.portalCenter = [NSValue valueWithCGPoint:vc.view.center];
             vc.view.tag = PORTALVIEWTAG;
             [instance.presentationWindow addSubview: vc.view];

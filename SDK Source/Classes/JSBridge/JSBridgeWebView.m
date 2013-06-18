@@ -118,7 +118,7 @@
 	}
 
     if ([requestURL fragment] && result) {
-//        NSLog(@"jsbridgewebview: received query: %@", [requestURL fragment]);
+        NSLog(@"jsbridgewebview: received query: %@", [requestURL fragment]);
         [bridgeDelegate handleQuery:[request URL] ];
 	} 
 //	NSLog(@"Result: %i ", result);

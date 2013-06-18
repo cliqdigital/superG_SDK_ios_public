@@ -7,7 +7,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MadsSDK/MadsSDK.h>
 
-#define VERSION @"2.0.31"
+#define VERSION @"2.0.32"
 
 #pragma mark - keys for settings
 extern NSString* ThumbrSettingPresentationWindow;
@@ -37,6 +37,7 @@ NSString* method;
 - (void) closedSDKPortalView;
 - (void) animateAdIn:(id)sender;
 - (void) animateAdOut:(id)sender;
+- (void) interstitialClosed:(id)sender;
 
 //- (void) scoreCallback:(NSString *)method method:(NSObject *)parsedData;
 
@@ -56,6 +57,7 @@ NSString* method;
 
 #pragma mark - init Thumbr SDK
 + (void) initializeSDKWithSettings: (NSDictionary*) settings andDelegate: (id)delegate;
++ (void) initializeSDKForAdsOnly;
 
 #pragma mark - open/close Portal Methods
 + (void) closeThumbrPortal;

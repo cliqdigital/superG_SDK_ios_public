@@ -57,5 +57,5 @@
 
 + (void) sendAnimateAdIn:(id)sender;
 + (void) sendAnimateAdOut:(id)sender;
-
++ (void) sendInterstitialClosed:(id)sender;
 @end

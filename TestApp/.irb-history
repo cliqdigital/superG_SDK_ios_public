@@ -1,0 +1,9 @@
+record_begin
+record_end mystuff
+record_end "mystuff"
+playback "mystuff"
+record_begin
+record_end "mystuff"
+playback "mystuff"
+playback "mystuff"
+exit

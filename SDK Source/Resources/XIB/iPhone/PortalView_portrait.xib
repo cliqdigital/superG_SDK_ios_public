@@ -681,7 +681,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="close_button.png">{25, 25}</string>
-			<string key="loadScreen.png">{478, 296}</string>
+			<string key="loadScreen.png">{960, 700}</string>
 			<string key="no_connection_background.png">{1920, 1400}</string>
 			<string key="no_connection_default.png">{1632, 541}</string>
 			<string key="refresh-default.png">{131, 107}</string>

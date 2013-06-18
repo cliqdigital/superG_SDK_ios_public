@@ -7,6 +7,14 @@ Revision history
 
 <table>
 	<tr>
+		<td>2.0.32</td>
+		<td>
+		-Possibility to hide the Thumbr close button (remote configuration)<br />
+		-Improved interstitial ads<br />
+		-Added demo and manual for Ad-only integration
+		</td>
+	</tr>
+	<tr>
 		<td>2.0.31</td>
 		<td>
 		-Personalized Ad serving support<br />
@@ -304,10 +312,20 @@ If you are using inline advertisements (Banners), create the UIViews for this.
 For iPhone use: 320x50 px
 For iPad use: 1024x120 pixels
 
-To your "viewcontroller.h" add:
+Add a View to your ViewController.xib that will hold the advertisement.
+
+Open the view controller where the Thumbr button and / or the advertisements will be.
+
+Add this to your imports in your viewcontroller.h:
+
+	#import "Thumbr/Thumbr.h"
+	#import "Thumbr/AdViewController.h"
+	#import "AppDelegate.h"
 
 	@property (retain, nonatomic) IBOutlet UIView *adView;
 
+##### Now connect the 'adView' IBOutlet to the view that will hold the advertisement.
+** If you are not using ads, simply skip creating the view and the IBOutlet. **
 
 In your "viewcontroller.m" calling the different advertisements uses these methods:
 
@@ -339,18 +357,16 @@ to the 'Other linker flags' in (your project)->Build Settings->Linking
 Make sure that the following frameworks are included in your Build Phases->Link Binaries With Libraries:
 
 Frameworks:
-	• CoreGraphics 	• Foundation 	• SystemConfiguration 	• UIKit 	• Thumbr
+	• CFNetwork	• CoreGraphics 	• Foundation 
 	• AdSupport
 	• CoreLocation
 	• CoreTelephony
 	• EventKit
 	• MediaPlayer
 	• MessageUI
-	• SystemConfiguration
-	• CFNetwork
-	• UIKit
-	• Foundation
-	• CoreGraphics
+	• SystemConfiguration 
+	• UIKit 
+
 Vendor libraries:
 	
 	• libAppsFlyerLib.a

@@ -146,6 +146,10 @@
 		BBBF9262169C4E5200F3DC40 /* no_connection_background.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBF925F169C4E5200F3DC40 /* no_connection_background.png */; };
 		BBBF9263169C4E5200F3DC40 /* no_connection_default.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBF9260169C4E5200F3DC40 /* no_connection_default.png */; };
 		BBBF9264169C4E5200F3DC40 /* no_connection_default.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBF9260169C4E5200F3DC40 /* no_connection_default.png */; };
+		BBD04FB01768C76100D49471 /* PortalView_noClose.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD04FAF1768C76100D49471 /* PortalView_noClose.xib */; };
+		BBD04FB21768C76900D49471 /* PortalView_portrait_iphone5_noClose.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD04FB11768C76900D49471 /* PortalView_portrait_iphone5_noClose.xib */; };
+		BBD04FB51768C78F00D49471 /* PortalView_noClose.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD04FB31768C78F00D49471 /* PortalView_noClose.xib */; };
+		BBD04FB61768C78F00D49471 /* PortalView_portrait_noClose.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD04FB41768C78F00D49471 /* PortalView_portrait_noClose.xib */; };
 		BBD9E7031663945A0096E648 /* loadScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD9E7001663945A0096E648 /* loadScreen.png */; };
 		BBD9E7051663945A0096E648 /* loadScreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD9E7011663945A0096E648 /* loadScreen@2x.png */; };
 		BBD9E709166394680096E648 /* loadScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = BBD9E707166394680096E648 /* loadScreen.png */; };
@@ -307,6 +311,10 @@
 		BBBD2060169B07B6006B38FB /* thumbr_00095.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbr_00095.png; sourceTree = "<group>"; };
 		BBBF925F169C4E5200F3DC40 /* no_connection_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_connection_background.png; sourceTree = "<group>"; };
 		BBBF9260169C4E5200F3DC40 /* no_connection_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_connection_default.png; sourceTree = "<group>"; };
+		BBD04FAF1768C76100D49471 /* PortalView_noClose.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortalView_noClose.xib; sourceTree = "<group>"; };
+		BBD04FB11768C76900D49471 /* PortalView_portrait_iphone5_noClose.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortalView_portrait_iphone5_noClose.xib; sourceTree = "<group>"; };
+		BBD04FB31768C78F00D49471 /* PortalView_noClose.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortalView_noClose.xib; sourceTree = "<group>"; };
+		BBD04FB41768C78F00D49471 /* PortalView_portrait_noClose.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortalView_portrait_noClose.xib; sourceTree = "<group>"; };
 		BBD9E7001663945A0096E648 /* loadScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadScreen.png; sourceTree = "<group>"; };
 		BBD9E7011663945A0096E648 /* loadScreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadScreen@2x.png"; sourceTree = "<group>"; };
 		BBD9E707166394680096E648 /* loadScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadScreen.png; sourceTree = "<group>"; };
@@ -478,6 +486,7 @@
 		4E9756491521C88800A7EF4E /* iPad */ = {
 			isa = PBXGroup;
 			children = (
+				BBD04FAF1768C76100D49471 /* PortalView_noClose.xib */,
 				BBEFC0F016A80921005C1E7A /* PortalView_portrait.xib */,
 				4E97564A1521C88800A7EF4E /* PortalView.xib */,
 			);
@@ -487,6 +496,9 @@
 		4E97564B1521C88800A7EF4E /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				BBD04FB31768C78F00D49471 /* PortalView_noClose.xib */,
+				BBD04FB41768C78F00D49471 /* PortalView_portrait_noClose.xib */,
+				BBD04FB11768C76900D49471 /* PortalView_portrait_iphone5_noClose.xib */,
 				BBDF9E9A16A8472400BA33B2 /* PortalView_portrait_iphone5.xib */,
 				BBEFC0ED16A7FD3C005C1E7A /* PortalView_portrait.xib */,
 				4E97564C1521C88800A7EF4E /* PortalView.xib */,
@@ -540,11 +552,11 @@
 		4EABB62D14FD31DB004CCB76 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				BB8629DA1700AB0600AE2755 /* AppsFlyer.h */,
 				BB59921C16A5862D00049FCF /* scoreBoard.h */,
 				BB59921D16A5862D00049FCF /* scoreBoard.m */,
 				4EABB62E14FD31DB004CCB76 /* Thumbr.h */,
 				4EABB62F14FD31DB004CCB76 /* Thumbr.m */,
+				BB8629DA1700AB0600AE2755 /* AppsFlyer.h */,
 				BB8629DD1700B19900AE2755 /* AdViewController.h */,
 				BB8629DE1700B19900AE2755 /* AdViewController.m */,
 				4ECA52F114FE0B62003A4C4B /* Thumbr+Private.h */,
@@ -732,6 +744,9 @@
 				BBBF9264169C4E5200F3DC40 /* no_connection_default.png in Resources */,
 				BBEFC0EE16A7FD3C005C1E7A /* PortalView_portrait.xib in Resources */,
 				BBDF9E9B16A8472400BA33B2 /* PortalView_portrait_iphone5.xib in Resources */,
+				BBD04FB21768C76900D49471 /* PortalView_portrait_iphone5_noClose.xib in Resources */,
+				BBD04FB51768C78F00D49471 /* PortalView_noClose.xib in Resources */,
+				BBD04FB61768C78F00D49471 /* PortalView_portrait_noClose.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -822,6 +837,7 @@
 				BBBF9261169C4E5200F3DC40 /* no_connection_background.png in Resources */,
 				BBBF9263169C4E5200F3DC40 /* no_connection_default.png in Resources */,
 				BBEFC0F116A80921005C1E7A /* PortalView_portrait.xib in Resources */,
+				BBD04FB01768C76100D49471 /* PortalView_noClose.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

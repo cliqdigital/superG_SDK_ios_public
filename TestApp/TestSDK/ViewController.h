@@ -13,6 +13,8 @@
 - (IBAction)AdOverlay:(UIButton *)sender;
 - (IBAction)AdInline:(UIButton *)sender;
 - (IBAction)AdInterstitial:(UIButton *)sender;
+- (IBAction)Reset:(id)sender;
+
 @property (retain, nonatomic) IBOutlet UIView *Banner;
 
 @property (retain, nonatomic) IBOutlet UIButton *inlinebutton;

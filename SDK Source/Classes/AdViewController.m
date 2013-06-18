@@ -19,15 +19,28 @@
 + (void) getAdSettings{
     //ONLY RETURNS UPDATE TIME INTERVAL FOR NOW.
     Thumbr* instance = [Thumbr instance];
-
+    
     [[LRResty client] get:[NSString stringWithFormat:@"http://ads.thumbr.com/adserver/?getAdSettings=1&debug=0&sid=%@",instance.sid] withBlock:^(LRRestyResponse *response) {
+        //NSLog(@"Getting ad settings: http://ads.thumbr.com/adserver/?getAdSettings=1&debug=0&sid=%@",instance.sid);
         if(response.status == 200) {
             @try {
                 NSString *csv=[response asString];
                 NSArray *list = [csv componentsSeparatedByString:@","];
-                NSLog(@"Update Time Interval: %@",[list objectAtIndex:0]);
+                
+                
+                NSLog(@"HIDE THUMBR WINDOW CLOSEBUTTON: %@",[list objectAtIndex:2]);
                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-                [prefs setInteger:[[list objectAtIndex:0] intValue] forKey:@"updateTimeIntervalOverride"];
+                if([list objectAtIndex:0]){
+                    [prefs setInteger:[[list objectAtIndex:0] intValue] forKey:@"updateTimeIntervalOverride"];
+                                    }
+                if([list objectAtIndex:1]){
+                    [prefs setInteger:[[list objectAtIndex:1] intValue] forKey:@"showCloseButtonTime"];
+                    NSLog(@"INTERSTITIAL ADS SHOW CLOSE BUTTON AFER N SECONDS: %@",[list objectAtIndex:1]);
+                    }
+                if([list objectAtIndex:2]){
+                    [prefs setInteger:[[list objectAtIndex:2] intValue] forKey:@"hideThumbrCloseButton"];
+                    NSLog(@"INLINE ADS UPDATE TIME INTERVAL: %@",[list objectAtIndex:0]);
+                }
             }
             @catch (NSException * e) {
                 NSLog(@"Could not parse Ad Settings: %@",e);
@@ -104,13 +117,15 @@
     if([settings valueForKey:@"zipcode"] == NULL){[settings setValue: @"" forKey: @"zipcode"];}
     if([settings valueForKey:@"gender"] == NULL){[settings setValue: @"" forKey: @"gender"];}
     if([settings valueForKey:@"date_of_birth"] == NULL){[settings setValue: @"" forKey: @"date_of_birth"];}
-    if([settings valueForKey:@"housenr"] == NULL){[settings setValue: @"" forKey: @"housenr"];}    
+    if([settings valueForKey:@"housenr"] == NULL){[settings setValue: @"" forKey: @"housenr"];}
     if([settings valueForKey:@"age"] == NULL){[settings setValue: @"" forKey: @"age"];}
     NSString *hashableString = [NSString stringWithFormat:@"%@:%@", @"49b26e3ac8701cf4c5840587d1d5e6eba01ab329b9179f6aef925f362a98065f", [settings valueForKey:@"id"]];
     NSString *sig = [self sha256:hashableString];
     NSLog(@"sig: %@",sig);
     
-    NSArray *objects = [NSArray arrayWithObjects:instance.sid, instance.clientId, [AppsFlyer getAppsFlyerUID],
+    NSArray *objects;
+    if(instance.sid != NULL){
+    objects = [NSArray arrayWithObjects:instance.sid, instance.clientId, [AppsFlyer getAppsFlyerUID],
                         [settings valueForKey:@"id"],
                         [self escape:[settings valueForKey:@"address"]],
                         [self escape:[settings valueForKey:@"city"]],
@@ -131,7 +146,9 @@
                         [Thumbr getAccesTokenFromSettings],
                         [settings valueForKey:@"id"],
                         nil];
-    
+    }else{
+        objects = [NSArray arrayWithObjects:@"", @"", @"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",sig,@"",@"",@"",@"",nil];
+    }
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
     return dictionary;
 }
@@ -165,7 +182,7 @@
     if([[settings valueForKey:@"country"] isKindOfClass:[NSNull class]] == false){adview.country = [settings valueForKey:@"country"];}
     if([[settings valueForKey:@"income"] isKindOfClass:[NSNull class]] == false){adview.income = [settings valueForKey:@"income"];}
     if([[settings valueForKey:@"id"] isKindOfClass:[NSNull class]] == false){adview.idx = [settings valueForKey:@"id"];}
-
+    
     adview.additionalParameters = [self getAdditionalParameters];
     
     self.adView = adview;
@@ -222,7 +239,7 @@
     if([[settings valueForKey:@"country"] isKindOfClass:[NSNull class]] == false){adview.country = [settings valueForKey:@"country"];}
     if([[settings valueForKey:@"income"] isKindOfClass:[NSNull class]] == false){adview.income = [settings valueForKey:@"income"];}
     if([[settings valueForKey:@"id"] isKindOfClass:[NSNull class]] == false){adview.idx = [settings valueForKey:@"id"];}
-
+    
     adview.additionalParameters = [self getAdditionalParameters];
     
     self.adView = adview;
@@ -234,6 +251,22 @@
 
 -(void) adInterstitial:(NSDictionary*)adSettings
 {
+    //create a progress dialog over all other content
+    //remove it with tag 3298572938475
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicator.frame = CGRectMake(0.0, 0.0, screenWidth, screenHeight);
+    indicator.center = self.view.center;
+    indicator.backgroundColor=[UIColor colorWithRed:0/255.f green:0/255.f blue:0/255.f alpha:0.7];
+    [[[UIApplication sharedApplication] keyWindow] addSubview:indicator];
+    [indicator bringSubviewToFront:self.view];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    indicator.tag = 3298572938475;
+    [indicator startAnimating];
+    
+    
     MadsAdView *adview = nil;
     CGRect keyFrame = [UIApplication sharedApplication].keyWindow.frame;
     
@@ -264,7 +297,7 @@
     if([[settings valueForKey:@"country"] isKindOfClass:[NSNull class]] == false){adview.country = [settings valueForKey:@"country"];}
     if([[settings valueForKey:@"income"] isKindOfClass:[NSNull class]] == false){adview.income = [settings valueForKey:@"income"];}
     if([[settings valueForKey:@"id"] isKindOfClass:[NSNull class]] == false){adview.idx = [settings valueForKey:@"id"];}
-
+    
     adview.additionalParameters = [self getAdditionalParameters];
     
     self.adView = adview;
@@ -413,6 +446,12 @@
 - (void)didReceiveAd:(id)sender
 {
     NSLog(@"didReceiveAd");
+    //Delaying the removal of the progress dialog (indicator), to make sure it stays visible until all ad content is loaded.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
+    });
+    
+    
     
     if([[Thumbr statusBarHidden]isEqual:@"TRUE"]){
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
@@ -430,6 +469,10 @@
 - (void)didFailToReceiveAd:(id)sender withError:(NSError*)error
 {
     NSLog(@"didFailToReceiveAd");
+    
+    [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
+    [Thumbr sendInterstitialClosed:sender];
+    
     if([[Thumbr statusBarHidden]isEqual:@"TRUE"]){
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
     }
@@ -440,6 +483,10 @@
 - (void)adWillStartFullScreen:(id)sender
 {
     NSLog(@"adWillStartFullScreen");
+    
+    [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
+    
+    
     self.adView.autocloseInterstitialTime=0;
     
 }
@@ -447,6 +494,7 @@
 - (void)adDidEndFullScreen:(id)sender
 {
     NSLog(@"adDidEndFullScreen");
+    [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
     if([[Thumbr statusBarHidden]isEqual:@"TRUE"]){
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
     }
@@ -455,10 +503,12 @@
 - (void)adWillExpandFullScreen:(id)sender
 {
     NSLog(@"adWillExpandFullScreen");
+    [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
 }
 
 - (void)adDidCloseExpandFullScreen:(id)sender
 {
+    [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
     NSLog(@"adDidCloseExpandFullScreen");
     
 }
@@ -466,24 +516,28 @@
 
 - (void)adWillOpenVideoFullScreen:(id)sender
 {
+    [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
     NSLog(@"adWillOpenVideoFullScreen");
     
 }
 
 - (void)adDidCloseVideoFullScreen:(id)sender
 {
+    [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
     NSLog(@"adDidCloseVideoFullScreen");
     
 }
 
 - (void)adWillOpenMessageUIFullScreen:(id)sender
 {
+    [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
     NSLog(@"adWillOpenMessageUIFullScreen");
     
 }
 
 - (void)adDidCloseMessageUIFullScreen:(id)sender
 {
+    [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
     NSLog(@"adDidCloseMessageUIFullScreen");
     
 }
@@ -491,6 +545,8 @@
 
 - (void)didClosedAd:(id)sender usageTimeInterval:(NSTimeInterval)usageTimeInterval
 {
+    [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
+        [Thumbr sendInterstitialClosed:sender];
     NSLog(@"didClosedAd");
     if([self.adType isEqual: @"inline"]){
         [Thumbr sendAnimateAdOut:sender];

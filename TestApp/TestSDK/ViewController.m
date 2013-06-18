@@ -126,4 +126,26 @@
 }
 
 
+
+- (IBAction)Reset:(UIButton *)sender {
+    [self reset];
+}
+
+//RESET LOCAL STORAGE AND CLEAR COOKIES
+- (void) reset
+{
+    NSError* error = nil;
+    NSLog(@"reset called");
+    NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"defaults" error:&error];
+    for (NSString *strName in dirContents) {
+        [[NSFileManager defaultManager] removeItemAtPath:[@"defaults" stringByAppendingPathComponent:strName] error:&error];
+    }
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    for(NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+}
+
 @end

@@ -207,13 +207,13 @@ ThumbrReachability* thumbrReachability;
 
 - (void)webViewDidStartLoad:(UIWebView *)wv {
     NSLog(@"portalviewcontroller: Page did start load. %@", [[[wv request] URL] standardizedURL]);
+   
     Thumbr* instance = [Thumbr instance];
-    if(instance.portalOrientation == 3 ){
-        [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationLandscapeLeft];
+     NSLog(@"%d", instance.portalOrientation);
+    if(instance.portalOrientation == 3 || instance.portalOrientation == 4 || instance.portalOrientation == 0 ){
+//        [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationLandscapeLeft|UIDeviceOrientationLandscapeRight];
     }
-    else if(instance.portalOrientation == 4){
-        [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationLandscapeRight];
-    }else{
+else{
         [[UIApplication sharedApplication] setStatusBarOrientation:UIDeviceOrientationPortrait];    
     }
     
