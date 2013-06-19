@@ -95,7 +95,7 @@
 
 //convert the profile to ThumbrUser data and send to delegate (the game)
 + (void) receivedProfile:(NSDictionary *)profile
-{
+{    NSLog(@"profile received: %@",profile);
     Thumbr* instance = [Thumbr instance];
     //set create ThumbrUser
     ThumbrUser* user = [[ThumbrUser alloc] init];
@@ -119,7 +119,7 @@
     if([[profile valueForKey:@"date_of_birth"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"date_of_birth"] forKey: @"date_of_birth"];}
     if([[profile valueForKey:@"housenr"] isKindOfClass:[NSNull class]] == false){[settings setValue: [profile valueForKey:@"housenr"] forKey: @"housenr"];}
     [[NSUserDefaults standardUserDefaults] setObject: settings forKey: @"ThumbrUser"];
-    NSLog(@"profile %@",profile);
+
     //Send user information to delegate (game)
     [instance.delegate thumbrSDK:instance didLoginUser: user];
 }

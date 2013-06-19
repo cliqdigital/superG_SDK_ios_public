@@ -12,9 +12,40 @@
 
 
 
+
 @implementation AdViewController
 @synthesize adView = _adView;
 
+
+
+-(CGSize) currentSize
+{
+    return [self sizeInOrientation:[UIApplication sharedApplication].statusBarOrientation];
+}
+
+-(CGSize) sizeInOrientation:(UIInterfaceOrientation)orientation
+{
+
+    CGSize size = [UIScreen mainScreen].bounds.size;
+    
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+        && [[UIScreen mainScreen] scale] == 2.0) {
+        size = CGSizeMake(size.width/2, size.height/2);
+    } else {
+        size = CGSizeMake(size.width, size.height);
+    }
+        
+    UIApplication *application = [UIApplication sharedApplication];
+    if (UIInterfaceOrientationIsLandscape(orientation))
+    {
+        size = CGSizeMake(size.height, size.width);
+    }
+    if (application.statusBarHidden == NO)
+    {
+        size.height -= MIN(application.statusBarFrame.size.width, application.statusBarFrame.size.height);
+    }
+    return size;
+}
 
 + (void) getAdSettings{
     //ONLY RETURNS UPDATE TIME INTERVAL FOR NOW.
@@ -156,21 +187,24 @@
 -(void) adOverlay:(NSDictionary*)adSettings
 {
     MadsAdView *adview = nil;
-    
-    CGRect keyFrame = [UIApplication sharedApplication].keyWindow.frame;
-    
+
+    NSLog(@"width: %f",[self currentSize].width);
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
-        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, keyFrame.size.height, keyFrame.size.width) zone:[adSettings objectForKey:@"iPhone_Overlay_zoneid"] secret:[adSettings objectForKey:@"iPhone_Overlay_secret"] delegate:self];
+        adview = [[MadsAdView alloc] initWithFrame:CGRectZero zone:[adSettings objectForKey:@"iPhone_Overlay_zoneid"] secret:[adSettings objectForKey:@"iPhone_Overlay_secret"] delegate:self];
     }
     else
     {
-        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, keyFrame.size.height, keyFrame.size.width) zone:[adSettings objectForKey:@"iPad_Overlay_zoneid"] secret:[adSettings objectForKey:@"iPad_Overlay_secret"] delegate:self];
+        adview = [[MadsAdView alloc] initWithFrame:CGRectZero zone:[adSettings objectForKey:@"iPad_Overlay_zoneid"] secret:[adSettings objectForKey:@"iPad_Overlay_secret"] delegate:self];
     }
+
+
+
+
     adview.adServerUrl=adUrl;
     adview.showCloseButtonTime = [[adSettings objectForKey:@"showCloseButtonTime"] floatValue];
     adview.madsAdType=MadsAdTypeOverlay;
-    adview.animationType = MadsAdAnimationTypeAppear;
+    
     adview.updateTimeInterval = 0;
     self.adType=@"overlay";
     NSLog(@"adview: %@",adview);
@@ -185,8 +219,11 @@
     
     adview.additionalParameters = [self getAdditionalParameters];
     
+    adview.maxSize = [self currentSize];
     self.adView = adview;
     [[[UIApplication sharedApplication] keyWindow] addSubview:adview];
+
+
 }
 
 
@@ -215,7 +252,7 @@
     }
     
     adview.contentAlignment=YES;
-    adview.maxSize = CGSizeMake(maxWidth,maxHeight);
+    //adview.maxSize = CGSizeMake(maxWidth,maxHeight);
     adview.madsAdType=MadsAdTypeInline;
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -277,7 +314,7 @@
     }
     else
     {
-        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, keyFrame.size.height, keyFrame.size.width) zone:[adSettings objectForKey:@"iPad_Interstitial_zoneid"] secret:[adSettings objectForKey:@"iPad_Interstitial_secret"] delegate:self];
+        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, keyFrame.size.width, keyFrame.size.height) zone:[adSettings objectForKey:@"iPad_Interstitial_zoneid"] secret:[adSettings objectForKey:@"iPad_Interstitial_secret"] delegate:self];
     }
     adview.adServerUrl=adUrl;
     adview.updateTimeInterval = 0; // only manual updates

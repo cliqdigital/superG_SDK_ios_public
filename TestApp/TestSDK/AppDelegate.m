@@ -37,17 +37,18 @@ NSString *const locale = @"";
 #define iPad_Inline_secret @"F0B4E489B0CFC0BB"
 #define iPad_Inline_square_zoneid @"3336754051"
 #define iPad_Inline_square_secret @"874A4100056D61D6"
-#define iPad_Overlay_zoneid @"8336743053"
-#define iPad_Overlay_secret @"BEF5D9D4D3E9B3CC"
-#define iPad_Interstitial_zoneid @"0336739057"
-#define iPad_Interstitial_secret @"DA018F2094E8189C"
+#define iPad_Overlay_zoneid @"1383034059"
+#define iPad_Overlay_secret @"45521F2F332F5226"
+#define iPad_Interstitial_zoneid @"1383048059"
+#define iPad_Interstitial_secret @"67A08AB6B7E7E391"
 #define iPhone_Inline_zoneid @"3327876051"
 #define iPhone_Inline_secret @"5AC993C91380875B"
-#define iPhone_Overlay_zoneid @"0335449053"
-#define iPhone_Overlay_secret @"9CD3FF68A812A11F"
+#define iPhone_Overlay_zoneid @"8383057050"
+#define iPhone_Overlay_secret @"A2E465BF955D25A5"
 #define iPhone_Interstitial_zoneid @"7383066058"
 #define iPhone_Interstitial_secret @"96F0B0238796CBE5"
-
+//#define iPhone_Interstitial_zoneid @"9335783055"
+//#define iPhone_Interstitial_secret @"A487B22CA7A032DF"
 
 
 //init score variables
@@ -150,7 +151,7 @@ NSObject *scoreOutput;
 
 - (void) closedSDKPortalView
 {
-    
+
     NSLog(@"The Game was notified about the closing PortalView");
 }
 
@@ -184,7 +185,7 @@ NSObject *scoreOutput;
         float height = frame.size.height;
         adViewFrame.origin.y = frameheight-height;
     }
-    
+
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
     [UIView setAnimationDelay:1.0];
@@ -194,23 +195,23 @@ NSObject *scoreOutput;
 }
 
 - (void) animateAdOut:(id)sender{
-    NSLog(@"animate Ad out");
-    CGRect adViewFrame = _viewController.adView.frame;
-    int frameheight=640;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        frameheight = _viewController.view.frame.size.width;
-    }
-    else{
-        frameheight = _viewController.view.frame.size.height;
-    }
-    
-    adViewFrame.origin.y = frameheight;
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationDelay:0];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    _viewController.adView.frame = adViewFrame;
-    [UIView commitAnimations];
+//    NSLog(@"animate Ad out");
+//    CGRect adViewFrame = _viewController.adView.frame;
+//    int frameheight=640;
+//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+//        frameheight = _viewController.view.frame.size.width;
+//    }
+//    else{
+//        frameheight = _viewController.view.frame.size.height;
+//    }
+//    
+//    adViewFrame.origin.y = frameheight;
+//    
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationDuration:0.5];
+//    [UIView setAnimationDelay:0];
+//    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+//    _viewController.adView.frame = adViewFrame;
+//    [UIView commitAnimations];
 }
 @end
