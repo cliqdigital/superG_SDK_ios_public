@@ -115,7 +115,7 @@ NSString* method;
 #define AccesTokenValidationUrlPath    @"https://gasp.thumbr.com/auth/validate?"
 #define profileAccesUrlPath             @"https://gasp.thumbr.com/api/v1/profile?"
 #define portalUrlPath                   @"https://m.thumbr.com/?"
-#define adUrl                   @"https://ads.thumbr.com/adserver/?"
+#define adUrl                   @"http://ads.thumbr.com/adserver/?"
 
 #define REGISTERED      1
 #define UNREGISTERED    0
