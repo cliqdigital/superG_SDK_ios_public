@@ -200,6 +200,7 @@
 
 
 
+
     adview.adServerUrl=adUrl;
     adview.showCloseButtonTime = [[adSettings objectForKey:@"showCloseButtonTime"] floatValue];
     adview.madsAdType=MadsAdTypeOverlay;
@@ -217,8 +218,9 @@
     if([[settings valueForKey:@"id"] isKindOfClass:[NSNull class]] == false){adview.idx = [settings valueForKey:@"id"];}
     
     adview.additionalParameters = [self getAdditionalParameters];
-    
+
     adview.maxSize = [self currentSize];
+    NSLog(@"%fx%f",adview.maxSize.width,adview.maxSize.height);    
     self.adView = adview;
     [[[UIApplication sharedApplication] keyWindow] addSubview:adview];
 
@@ -251,7 +253,7 @@
     }
     
     adview.contentAlignment=YES;
-    //adview.maxSize = CGSizeMake(maxWidth,maxHeight);
+    
     adview.madsAdType=MadsAdTypeInline;
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -309,11 +311,11 @@
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
-        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, [self currentSize].width, [self currentSize].height) zone:[adSettings objectForKey:@"iPhone_Interstitial_zoneid"] secret:[adSettings objectForKey:@"iPhone_Interstitial_secret"] delegate:self];
+        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, keyFrame.size.width, keyFrame.size.height) zone:[adSettings objectForKey:@"iPhone_Interstitial_zoneid"] secret:[adSettings objectForKey:@"iPhone_Interstitial_secret"] delegate:self];
     }
     else
     {
-        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, [self currentSize].height, [self currentSize].width) zone:[adSettings objectForKey:@"iPad_Interstitial_zoneid"] secret:[adSettings objectForKey:@"iPad_Interstitial_secret"] delegate:self];
+        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, keyFrame.size.height, keyFrame.size.width) zone:[adSettings objectForKey:@"iPad_Interstitial_zoneid"] secret:[adSettings objectForKey:@"iPad_Interstitial_secret"] delegate:self];
     }
     adview.adServerUrl=adUrl;
     adview.updateTimeInterval = 0; // only manual updates
@@ -340,8 +342,6 @@
     [[[UIApplication sharedApplication] keyWindow] addSubview:adview];
     [adview release];
 }
-
-
 
 
 

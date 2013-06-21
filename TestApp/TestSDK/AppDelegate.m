@@ -14,8 +14,8 @@
 @synthesize viewController = _viewController;
 
 //SETTINGS
-NSString *const sid = @"";
-NSString *const client_id = @"";
+NSString *const sid = @"ski-jump-iphone";
+NSString *const client_id = @"84758475-476574";
 NSString *const appsflyerNotifyAppID = @"";
 NSString *const scoreGameID = @"";
 
@@ -39,16 +39,14 @@ NSString *const locale = @"";
 #define iPad_Inline_square_secret @"874A4100056D61D6"
 #define iPad_Overlay_zoneid @"1383034059"
 #define iPad_Overlay_secret @"45521F2F332F5226"
-#define iPad_Interstitial_zoneid @"1383048059"
-#define iPad_Interstitial_secret @"67A08AB6B7E7E391"
+#define iPad_Interstitial_zoneid @"0336739057"
+#define iPad_Interstitial_secret @"DA018F2094E8189C"
 #define iPhone_Inline_zoneid @"3327876051"
 #define iPhone_Inline_secret @"5AC993C91380875B"
 #define iPhone_Overlay_zoneid @"8383057050"
 #define iPhone_Overlay_secret @"A2E465BF955D25A5"
-#define iPhone_Interstitial_zoneid @"7383066058"
-#define iPhone_Interstitial_secret @"96F0B0238796CBE5"
-//#define iPhone_Interstitial_zoneid @"9335783055"
-//#define iPhone_Interstitial_secret @"A487B22CA7A032DF"
+#define iPhone_Interstitial_zoneid @"9335783055"
+#define iPhone_Interstitial_secret @"A487B22CA7A032DF"
 
 
 //init score variables
@@ -166,18 +164,36 @@ NSObject *scoreOutput;
     NSLog(@"Interstitial or overlay advertisement has closed. You can resume the game, if you paused it for the interstitial / overlay");
 }
 
+-(CGSize) currentSize
+{
+    return [self sizeInOrientation:[UIApplication sharedApplication].statusBarOrientation];
+}
+
+-(CGSize) sizeInOrientation:(UIInterfaceOrientation)orientation
+{
+    
+    CGSize size = [UIScreen mainScreen].bounds.size;
+    
+    UIApplication *application = [UIApplication sharedApplication];
+    if (UIInterfaceOrientationIsLandscape(orientation))
+    {
+        size = CGSizeMake(size.height, size.width);
+    }
+    if (application.statusBarHidden == NO)
+    {
+        size.height -= MIN(application.statusBarFrame.size.width, application.statusBarFrame.size.height);
+    }
+    return size;
+}
+
 - (void) animateAdIn:(id)sender{
     NSLog(@"animate Ad in");
     _viewController.adView.hidden = NO;
     CGRect adViewFrame = _viewController.adView.frame;
-    int frameheight=640;
+    int frameheight;
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        frameheight = _viewController.view.frame.size.width;
-    }
-    else{
-        frameheight = _viewController.view.frame.size.height;
-    }
+    frameheight = [self currentSize].height;
+    NSLog(@"%d",frameheight);
     adViewFrame.origin.y = frameheight-adViewFrame.size.height;
     
     CGRect frame = [sender frame];
@@ -195,23 +211,18 @@ NSObject *scoreOutput;
 }
 
 - (void) animateAdOut:(id)sender{
-//    NSLog(@"animate Ad out");
-//    CGRect adViewFrame = _viewController.adView.frame;
-//    int frameheight=640;
-//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-//        frameheight = _viewController.view.frame.size.width;
-//    }
-//    else{
-//        frameheight = _viewController.view.frame.size.height;
-//    }
-//    
-//    adViewFrame.origin.y = frameheight;
-//    
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDuration:0.5];
-//    [UIView setAnimationDelay:0];
-//    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-//    _viewController.adView.frame = adViewFrame;
-//    [UIView commitAnimations];
+    NSLog(@"animate Ad out");
+    CGRect adViewFrame = _viewController.adView.frame;
+    int frameheight;
+    frameheight = [self currentSize].height;
+    
+    adViewFrame.origin.y = frameheight;
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDelay:0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    _viewController.adView.frame = adViewFrame;
+    [UIView commitAnimations];
 }
 @end
