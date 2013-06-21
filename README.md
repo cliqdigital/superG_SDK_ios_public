@@ -7,6 +7,12 @@ Revision history
 
 <table>
 	<tr>
+		<td>2.0.321</td>
+		<td>
+		-Ad overlay bug fix<br />
+		</td>
+	</tr>
+	<tr>
 		<td>2.0.32</td>
 		<td>
 		-Possibility to hide the Thumbr close button (remote configuration)<br />
