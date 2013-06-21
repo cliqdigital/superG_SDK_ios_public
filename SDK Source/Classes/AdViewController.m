@@ -25,16 +25,18 @@
 
 -(CGSize) sizeInOrientation:(UIInterfaceOrientation)orientation
 {
-
+    
     CGSize size = [UIScreen mainScreen].bounds.size;
     
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
-        && [[UIScreen mainScreen] scale] == 2.0) {
-        size = CGSizeMake(size.width/2, size.height/2);
-    } else {
-        size = CGSizeMake(size.width, size.height);
+    //overlay ads have a bug where retina screens provide an ad view that is twice the allowed size.
+    if([self.adType isEqual: @"overlay"]){
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]
+            && [[UIScreen mainScreen] scale] == 2.0) {
+            size = CGSizeMake(size.width/2, size.height/2);
+        } else {
+            size = CGSizeMake(size.width, size.height);
+        }
     }
-        
     UIApplication *application = [UIApplication sharedApplication];
     if (UIInterfaceOrientationIsLandscape(orientation))
     {
@@ -63,11 +65,11 @@
                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                 if([list objectAtIndex:0]){
                     [prefs setInteger:[[list objectAtIndex:0] intValue] forKey:@"updateTimeIntervalOverride"];
-                                    }
+                }
                 if([list objectAtIndex:1]){
                     [prefs setInteger:[[list objectAtIndex:1] intValue] forKey:@"showCloseButtonTime"];
                     NSLog(@"INTERSTITIAL ADS SHOW CLOSE BUTTON AFER N SECONDS: %@",[list objectAtIndex:1]);
-                    }
+                }
                 if([list objectAtIndex:2]){
                     [prefs setInteger:[[list objectAtIndex:2] intValue] forKey:@"hideThumbrCloseButton"];
                     NSLog(@"INLINE ADS UPDATE TIME INTERVAL: %@",[list objectAtIndex:0]);
@@ -156,27 +158,27 @@
     
     NSArray *objects;
     if(instance.sid != NULL){
-    objects = [NSArray arrayWithObjects:instance.sid, instance.clientId, [AppsFlyer getAppsFlyerUID],
-                        [settings valueForKey:@"id"],
-                        [self escape:[settings valueForKey:@"address"]],
-                        [self escape:[settings valueForKey:@"city"]],
-                        [self escape:[settings valueForKey:@"country"]],
-                        [self escape:[settings valueForKey:@"email"]],
-                        [self escape:[settings valueForKey:@"firstname"]],
-                        [settings valueForKey:@"locale"],
-                        [self escape:[settings valueForKey:@"msisdn"]],
-                        [settings valueForKey:@"newsletter"],
-                        [settings valueForKey:@"status"],
-                        [self escape:[settings valueForKey:@"surname"]],
-                        [self escape:[settings valueForKey:@"username"]],
-                        [self escape:[settings valueForKey:@"zipcode"]],
-                        [settings valueForKey:@"gender"],
-                        sig,
-                        [self escape:[settings valueForKey:@"date_of_birth"]],
-                        [settings valueForKey:@"housenr"],
-                        [Thumbr getAccesTokenFromSettings],
-                        [settings valueForKey:@"id"],
-                        nil];
+        objects = [NSArray arrayWithObjects:instance.sid, instance.clientId, [AppsFlyer getAppsFlyerUID],
+                   [settings valueForKey:@"id"],
+                   [self escape:[settings valueForKey:@"address"]],
+                   [self escape:[settings valueForKey:@"city"]],
+                   [self escape:[settings valueForKey:@"country"]],
+                   [self escape:[settings valueForKey:@"email"]],
+                   [self escape:[settings valueForKey:@"firstname"]],
+                   [settings valueForKey:@"locale"],
+                   [self escape:[settings valueForKey:@"msisdn"]],
+                   [settings valueForKey:@"newsletter"],
+                   [settings valueForKey:@"status"],
+                   [self escape:[settings valueForKey:@"surname"]],
+                   [self escape:[settings valueForKey:@"username"]],
+                   [self escape:[settings valueForKey:@"zipcode"]],
+                   [settings valueForKey:@"gender"],
+                   sig,
+                   [self escape:[settings valueForKey:@"date_of_birth"]],
+                   [settings valueForKey:@"housenr"],
+                   [Thumbr getAccesTokenFromSettings],
+                   [settings valueForKey:@"id"],
+                   nil];
     }else{
         objects = [NSArray arrayWithObjects:@"", @"", @"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",sig,@"",@"",@"",@"",nil];
     }
@@ -187,7 +189,7 @@
 -(void) adOverlay:(NSDictionary*)adSettings
 {
     MadsAdView *adview = nil;
-
+    
     NSLog(@"width: %f",[self currentSize].width);
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
@@ -197,10 +199,10 @@
     {
         adview = [[MadsAdView alloc] initWithFrame:CGRectZero zone:[adSettings objectForKey:@"iPad_Overlay_zoneid"] secret:[adSettings objectForKey:@"iPad_Overlay_secret"] delegate:self];
     }
-
-
-
-
+    
+    
+    
+    
     adview.adServerUrl=adUrl;
     adview.showCloseButtonTime = [[adSettings objectForKey:@"showCloseButtonTime"] floatValue];
     adview.madsAdType=MadsAdTypeOverlay;
@@ -218,13 +220,13 @@
     if([[settings valueForKey:@"id"] isKindOfClass:[NSNull class]] == false){adview.idx = [settings valueForKey:@"id"];}
     
     adview.additionalParameters = [self getAdditionalParameters];
-
+    
     adview.maxSize = [self currentSize];
-    NSLog(@"%fx%f",adview.maxSize.width,adview.maxSize.height);    
+    NSLog(@"%fx%f",adview.maxSize.width,adview.maxSize.height);
     self.adView = adview;
     [[[UIApplication sharedApplication] keyWindow] addSubview:adview];
-
-
+    
+    
 }
 
 
@@ -243,19 +245,9 @@
     }
     
     adview.adServerUrl=adUrl;
-    CGFloat maxWidth = CGRectGetWidth(view.bounds);
-    CGFloat maxHeight = CGRectGetHeight(view.bounds);
-    
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
-        ([UIScreen mainScreen].scale == 2.0)) {
-        maxWidth*=2;
-        maxHeight*=2;
-    }
-    
-    adview.contentAlignment=YES;
-    
+    adview.contentAlignment=NO;
     adview.madsAdType=MadsAdTypeInline;
-    
+
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSInteger updateTimeIntervalOverride = [prefs integerForKey:@"updateTimeIntervalOverride"];
     NSLog(@"TIO: %d",updateTimeIntervalOverride);
@@ -266,7 +258,7 @@
         adview.updateTimeInterval = [[adSettings objectForKey:@"updateTimeInterval"] floatValue];
     }
     
-    adview.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
+    //adview.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
     self.adType=@"inline";
     
     NSMutableDictionary* settings = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey: @"ThumbrUser"]];
@@ -279,7 +271,7 @@
     if([[settings valueForKey:@"id"] isKindOfClass:[NSNull class]] == false){adview.idx = [settings valueForKey:@"id"];}
     
     adview.additionalParameters = [self getAdditionalParameters];
-    
+
     self.adView = adview;
     [view addSubview:adview];
     [view bringSubviewToFront:adview];
@@ -311,11 +303,11 @@
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
-        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, keyFrame.size.width, keyFrame.size.height) zone:[adSettings objectForKey:@"iPhone_Interstitial_zoneid"] secret:[adSettings objectForKey:@"iPhone_Interstitial_secret"] delegate:self];
+        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, [self currentSize].width, [self currentSize].height) zone:[adSettings objectForKey:@"iPhone_Interstitial_zoneid"] secret:[adSettings objectForKey:@"iPhone_Interstitial_secret"] delegate:self];
     }
     else
     {
-        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, keyFrame.size.height, keyFrame.size.width) zone:[adSettings objectForKey:@"iPad_Interstitial_zoneid"] secret:[adSettings objectForKey:@"iPad_Interstitial_secret"] delegate:self];
+        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, [self currentSize].width, [self currentSize].height) zone:[adSettings objectForKey:@"iPad_Interstitial_zoneid"] secret:[adSettings objectForKey:@"iPad_Interstitial_secret"] delegate:self];
     }
     adview.adServerUrl=adUrl;
     adview.updateTimeInterval = 0; // only manual updates
@@ -537,18 +529,20 @@
 }
 
 - (void)adWillExpandFullScreen:(id)sender
-{
+{    
     NSLog(@"adWillExpandFullScreen");
     [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
 }
 
 - (void)adDidCloseExpandFullScreen:(id)sender
 {
+    if([self.adType isEqual: @"inline"]){
+        [Thumbr sendAnimateAdOut:sender];
+    }
     [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
     NSLog(@"adDidCloseExpandFullScreen");
     
 }
-
 
 - (void)adWillOpenVideoFullScreen:(id)sender
 {
@@ -582,7 +576,7 @@
 - (void)didClosedAd:(id)sender usageTimeInterval:(NSTimeInterval)usageTimeInterval
 {
     [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
-        [Thumbr sendInterstitialClosed:sender];
+    [Thumbr sendInterstitialClosed:sender];
     NSLog(@"didClosedAd");
     if([self.adType isEqual: @"inline"]){
         [Thumbr sendAnimateAdOut:sender];
