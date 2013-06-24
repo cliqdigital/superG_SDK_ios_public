@@ -7,7 +7,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MadsSDK/MadsSDK.h>
 
-#define VERSION @"2.0.32"
+#define VERSION @"2.0.322"
 
 #pragma mark - keys for settings
 extern NSString* ThumbrSettingPresentationWindow;

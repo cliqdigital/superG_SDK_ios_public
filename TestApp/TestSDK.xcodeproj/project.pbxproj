@@ -65,7 +65,7 @@
 		BBD814BA1700A2710058DD2B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B41700A2710058DD2B /* MediaPlayer.framework */; };
 		BBD814BB1700A2710058DD2B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B51700A2710058DD2B /* MessageUI.framework */; };
 		BBD9E7171663BE9F0096E648 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD9E7161663BE9F0096E648 /* libAppsFlyerLib.a */; };
-		BBDF9EDF16B2AA6600BA33B2 /* LRResty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDF9EDE16B2AA6600BA33B2 /* LRResty.framework */; };
+		BBDF9EDF16B2AA6600BA33B2 /* LRResty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDF9EDE16B2AA6600BA33B2 /* LRResty.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		a32cc4138e75229925852194 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B11700A2710058DD2B /* CoreLocation.framework */; };
 		a372b22f592f29bbc5b2735f /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B41700A2710058DD2B /* MediaPlayer.framework */; };
 		a5fbfb9dfe266eb5ef6a78c5 /* Thumbr-iPad.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB1F73BA1667AC310006F0B6 /* Thumbr-iPad.bundle */; };
@@ -564,9 +564,10 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2CF4522B-8A87-46FD-A38C-02F56BB0DC4D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A5E7B34A-B8DD-4091-BBB4-B770F51445E4";
+				PROVISIONING_PROFILE = "4337A76D-54EA-4BEB-ABB7-CA7716EF9783";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4337A76D-54EA-4BEB-ABB7-CA7716EF9783";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -598,9 +599,10 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2CF4522B-8A87-46FD-A38C-02F56BB0DC4D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9981A95A-AA37-4952-A79F-5712F6BB8FB5";
+				PROVISIONING_PROFILE = "4337A76D-54EA-4BEB-ABB7-CA7716EF9783";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4337A76D-54EA-4BEB-ABB7-CA7716EF9783";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

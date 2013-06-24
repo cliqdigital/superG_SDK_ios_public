@@ -24,6 +24,7 @@ SBJsonParser *jsonParser;
 -(NSDictionary*)getAdditionalParameters;
 +(void) getAdSettings;
 -(NSString*)escape:(NSString*)input;
+-(void) stopAds;
 @end
 
 

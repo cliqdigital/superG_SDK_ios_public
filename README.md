@@ -7,6 +7,12 @@ Revision history
 
 <table>
 	<tr>
+		<td>2.0.322</td>
+		<td>
+		-Added stopAds function (currently loading ads will be cancelled)<br />
+		</td>
+	</tr>
+	<tr>
 		<td>2.0.321</td>
 		<td>
 		-Ad overlay bug fix<br />

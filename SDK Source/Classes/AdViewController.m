@@ -16,7 +16,19 @@
 @implementation AdViewController
 @synthesize adView = _adView;
 
-
+-(void) stopAds{
+    @try {
+        [(id)[[[UIApplication sharedApplication] keyWindow] viewWithTag:431431431431431] stopEverythingAndNotifyDelegateOnCleanup];
+        [[[[UIApplication sharedApplication] keyWindow] viewWithTag:431431431431431] removeFromSuperview];
+        [[[[UIApplication sharedApplication] keyWindow] viewWithTag:431431431431431] release];
+    }
+    @catch (NSException * e) {
+//        NSLog(@"Exception: %@", e);
+    }
+    @finally {
+//        NSLog(@"finally");
+    }
+}
 
 -(CGSize) currentSize
 {
@@ -199,7 +211,7 @@
     {
         adview = [[MadsAdView alloc] initWithFrame:CGRectZero zone:[adSettings objectForKey:@"iPad_Overlay_zoneid"] secret:[adSettings objectForKey:@"iPad_Overlay_secret"] delegate:self];
     }
-    
+    adview.tag = 431431431431431;
     
     
     
@@ -220,7 +232,6 @@
     if([[settings valueForKey:@"id"] isKindOfClass:[NSNull class]] == false){adview.idx = [settings valueForKey:@"id"];}
     
     adview.additionalParameters = [self getAdditionalParameters];
-    
     adview.maxSize = [self currentSize];
     NSLog(@"%fx%f",adview.maxSize.width,adview.maxSize.height);
     self.adView = adview;
@@ -247,7 +258,7 @@
     adview.adServerUrl=adUrl;
     adview.contentAlignment=NO;
     adview.madsAdType=MadsAdTypeInline;
-
+    adview.tag = 431431431431431;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSInteger updateTimeIntervalOverride = [prefs integerForKey:@"updateTimeIntervalOverride"];
     NSLog(@"TIO: %d",updateTimeIntervalOverride);
@@ -298,8 +309,7 @@
     
     
     MadsAdView *adview = nil;
-    CGRect keyFrame = [UIApplication sharedApplication].keyWindow.frame;
-    
+    adview.tag = 431431431431431;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {

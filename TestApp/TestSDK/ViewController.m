@@ -128,12 +128,14 @@
 
 
 - (IBAction)Reset:(UIButton *)sender {
+    [[[[AdViewController alloc] init] retain] stopAds];
     [self reset];
 }
 
 //RESET LOCAL STORAGE AND CLEAR COOKIES
 - (void) reset
 {
+    
     NSError* error = nil;
     NSLog(@"reset called");
     NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"defaults" error:&error];

@@ -14,7 +14,7 @@
 @synthesize viewController = _viewController;
 
 //SETTINGS
-NSString *const sid = @"ski-jump-iphone";
+NSString *const sid = @"";
 NSString *const client_id = @"84758475-476574";
 NSString *const appsflyerNotifyAppID = @"";
 NSString *const scoreGameID = @"";
