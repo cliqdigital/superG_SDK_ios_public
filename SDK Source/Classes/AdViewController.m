@@ -212,9 +212,6 @@
         adview = [[MadsAdView alloc] initWithFrame:CGRectZero zone:[adSettings objectForKey:@"iPad_Overlay_zoneid"] secret:[adSettings objectForKey:@"iPad_Overlay_secret"] delegate:self];
     }
     adview.tag = 431431431431431;
-    
-    
-    
     adview.adServerUrl=adUrl;
     adview.showCloseButtonTime = [[adSettings objectForKey:@"showCloseButtonTime"] floatValue];
     adview.madsAdType=MadsAdTypeOverlay;
@@ -233,11 +230,11 @@
     
     adview.additionalParameters = [self getAdditionalParameters];
     adview.maxSize = [self currentSize];
-    NSLog(@"%fx%f",adview.maxSize.width,adview.maxSize.height);
+    
     self.adView = adview;
     [[[UIApplication sharedApplication] keyWindow] addSubview:adview];
     
-    
+    [adview release];
 }
 
 
@@ -286,6 +283,8 @@
     self.adView = adview;
     [view addSubview:adview];
     [view bringSubviewToFront:adview];
+    
+    [adview release];
 };
 
 
