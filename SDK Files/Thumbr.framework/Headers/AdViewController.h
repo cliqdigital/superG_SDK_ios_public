@@ -19,7 +19,7 @@ SBJsonParser *jsonParser;
 @property(nonatomic,retain) MadsAdView *adView;
 @property(nonatomic,retain) NSString *adType;
 -(void) adOverlay:(NSDictionary*)adSettings;
--(void) adInline:(NSDictionary*)adSettings adSettings:(UIView*)view;
+-(void) adInline:(NSDictionary*)adSettings adSettings:(UIView*)view atPoint:(CGPoint)point;
 -(void) adInterstitial:(NSDictionary*)adSettings;
 -(NSDictionary*)getAdditionalParameters;
 +(void) getAdSettings;

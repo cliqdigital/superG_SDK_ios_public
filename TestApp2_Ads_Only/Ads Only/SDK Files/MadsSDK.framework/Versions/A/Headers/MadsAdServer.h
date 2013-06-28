@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-#define kMadsSDKVersion @"v4.1.5"
+#define kMadsSDKVersion @"v4.2.7"
 
 @interface MadsAdServer : NSObject
 

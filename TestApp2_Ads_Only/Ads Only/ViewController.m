@@ -22,7 +22,8 @@
 //    Example 1: Inline advertisement (banner):
     
 //    NSDictionary* adSettings = [AppDelegate getAdSettings];
-//    [[[[AdViewController alloc] init] retain] adInline:adSettings adSettings:self.adView];
+    //CGPoint point = CGPointMake(0, 0);
+    //[[[[AdViewController alloc] init] retain] adInline:adSettings adSettings:self.adView atPoint:point];
     
 
     

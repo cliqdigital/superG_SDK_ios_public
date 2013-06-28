@@ -21,12 +21,13 @@
         [(id)[[[UIApplication sharedApplication] keyWindow] viewWithTag:431431431431431] stopEverythingAndNotifyDelegateOnCleanup];
         [[[[UIApplication sharedApplication] keyWindow] viewWithTag:431431431431431] removeFromSuperview];
         [[[[UIApplication sharedApplication] keyWindow] viewWithTag:431431431431431] release];
+        if([[Thumbr statusBarHidden]isEqual:@"TRUE"]){
+            [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        }
     }
     @catch (NSException * e) {
-//        NSLog(@"Exception: %@", e);
     }
     @finally {
-//        NSLog(@"finally");
     }
 }
 
@@ -214,8 +215,8 @@
     adview.tag = 431431431431431;
     adview.adServerUrl=adUrl;
     adview.showCloseButtonTime = [[adSettings objectForKey:@"showCloseButtonTime"] floatValue];
+    adview.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     adview.madsAdType=MadsAdTypeOverlay;
-    
     adview.updateTimeInterval = 0;
     self.adType=@"overlay";
     NSLog(@"adview: %@",adview);
@@ -238,18 +239,18 @@
 }
 
 
--(void) adInline:(NSDictionary*)adSettings adSettings:(UIView*)view
+-(void) adInline:(NSDictionary*)adSettings adSettings:(UIView*)view atPoint:(CGPoint)point
 {
     [AdViewController getAdSettings];
     MadsAdView *adview = nil;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
-        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320, 50) zone:[adSettings objectForKey:@"iPhone_Inline_zoneid"] secret:[adSettings objectForKey:@"iPhone_Inline_secret"] delegate:self];
+        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(point.x, point.y, 320, 50) zone:[adSettings objectForKey:@"iPhone_Inline_zoneid"] secret:[adSettings objectForKey:@"iPhone_Inline_secret"] delegate:self];
     }
     else
     {
-        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(0.0, 0.0, 728, 90) zone:[adSettings objectForKey:@"iPad_Inline_zoneid"] secret:[adSettings objectForKey:@"iPad_Inline_secret"] delegate:self];
+        adview = [[MadsAdView alloc] initWithFrame:CGRectMake(point.x, point.y, 728, 90) zone:[adSettings objectForKey:@"iPad_Inline_zoneid"] secret:[adSettings objectForKey:@"iPad_Inline_secret"] delegate:self];
     }
     
     adview.adServerUrl=adUrl;
@@ -279,7 +280,7 @@
     if([[settings valueForKey:@"id"] isKindOfClass:[NSNull class]] == false){adview.idx = [settings valueForKey:@"id"];}
     
     adview.additionalParameters = [self getAdditionalParameters];
-
+    
     self.adView = adview;
     [view addSubview:adview];
     [view bringSubviewToFront:adview];
@@ -445,6 +446,9 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
+    if([[Thumbr statusBarHidden]isEqual:@"TRUE"]){
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    }
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -508,8 +512,13 @@
     NSLog(@"didFailToReceiveAd");
     
     [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
-    [Thumbr sendInterstitialClosed:sender];
-    
+    @try{
+        [Thumbr sendInterstitialClosed:sender];
+    }
+    @catch (NSException * e) {
+    }
+    @finally {
+    }
     if([[Thumbr statusBarHidden]isEqual:@"TRUE"]){
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
     }
@@ -522,7 +531,9 @@
     NSLog(@"adWillStartFullScreen");
     
     [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
-    
+    if([[Thumbr statusBarHidden]isEqual:@"TRUE"]){
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    }
     
     self.adView.autocloseInterstitialTime=0;
     
@@ -538,15 +549,21 @@
 }
 
 - (void)adWillExpandFullScreen:(id)sender
-{    
+{
+    if([[Thumbr statusBarHidden]isEqual:@"TRUE"]){
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    }
     NSLog(@"adWillExpandFullScreen");
     [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
 }
 
 - (void)adDidCloseExpandFullScreen:(id)sender
 {
-    if([self.adType isEqual: @"inline"]){
-        [Thumbr sendAnimateAdOut:sender];
+//    if([self.adType isEqual: @"inline"]){
+//        [Thumbr sendAnimateAdOut:sender];
+//    }
+    if([[Thumbr statusBarHidden]isEqual:@"TRUE"]){
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
     }
     [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
     NSLog(@"adDidCloseExpandFullScreen");
@@ -585,7 +602,13 @@
 - (void)didClosedAd:(id)sender usageTimeInterval:(NSTimeInterval)usageTimeInterval
 {
     [[[[UIApplication sharedApplication] keyWindow] viewWithTag:3298572938475] removeFromSuperview];
-    [Thumbr sendInterstitialClosed:sender];
+    @try{
+        [Thumbr sendInterstitialClosed:sender];
+    }
+    @catch (NSException * e) {
+    }
+    @finally {
+    }
     NSLog(@"didClosedAd");
     if([self.adType isEqual: @"inline"]){
         [Thumbr sendAnimateAdOut:sender];

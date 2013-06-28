@@ -7,6 +7,13 @@ Revision history
 
 <table>
 	<tr>
+		<td>2.0.323</td>
+		<td>
+		-Removed status bar after stopAds<br />
+		-Added customizible CGPoint for inline ads
+		</td>
+	</tr>
+	<tr>
 		<td>2.0.322</td>
 		<td>
 		-Added stopAds function (currently loading ads will be cancelled)<br />
@@ -248,6 +255,10 @@ Last, in this file, add (or update) these methods:
 	    return adSettings;
 	}
 	
+	- (void) interstitialClosed:(id)sender{
+    NSLog(@"Interstitial or overlay advertisement has closed. You can resume the game, if you paused it for the interstitial / overlay");
+	}
+	
 	- (void) animateAdIn:(id)sender{
 	    NSLog(@"animate Ad in");
 	    _viewController.adView.hidden = NO;
@@ -349,7 +360,8 @@ In your "viewcontroller.m" calling the different advertisements uses these metho
 #####Inline advertisement (banner):
 
     NSDictionary* adSettings = [AppDelegate getAdSettings];
-    [[[[AdViewController alloc] init] retain] adInline:adSettings adSettings:self.adView];
+    CGPoint point = CGPointMake(0, 0);
+    [[[[AdViewController alloc] init] retain] adInline:adSettings adSettings:self.adView atPoint:point];
 
 #####Interstitial advertisement (fullscreen):
 

@@ -62,6 +62,8 @@
     UIButton *thumbrT2 = [Thumbr loadThumbrT:relativeSize relativeSize:@"TL"];
     [self.thumbrTView addSubview:thumbrT2 ];
     
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(deviceOrientationDidChange:) name: UIDeviceOrientationDidChangeNotification object: nil];
 }
 
 - (void)viewDidUnload
@@ -115,7 +117,8 @@
 - (IBAction)AdInline:(UIButton *)sender {
    [self clearAdView];
     NSDictionary* adSettings = [AppDelegate getAdSettings];
-    [[[[AdViewController alloc] init] retain] adInline:adSettings adSettings:self.adView];
+    CGPoint point = CGPointMake(0, 0);
+    [[[[AdViewController alloc] init] retain] adInline:adSettings adSettings:self.adView atPoint:point];
 }
 
 
@@ -126,10 +129,16 @@
 }
 
 
-
 - (IBAction)Reset:(UIButton *)sender {
     [[[[AdViewController alloc] init] retain] stopAds];
     [self reset];
+}
+
+
+UIDeviceOrientation currentOrientation;
+
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+
 }
 
 //RESET LOCAL STORAGE AND CLEAR COOKIES

@@ -14,7 +14,7 @@
 @synthesize viewController = _viewController;
 
 //SETTINGS
-NSString *const sid = @"";
+NSString *const sid = @"ski-jump-iphone";
 NSString *const client_id = @"84758475-476574";
 NSString *const appsflyerNotifyAppID = @"";
 NSString *const scoreGameID = @"";
@@ -37,14 +37,14 @@ NSString *const locale = @"";
 #define iPad_Inline_secret @"F0B4E489B0CFC0BB"
 #define iPad_Inline_square_zoneid @"3336754051"
 #define iPad_Inline_square_secret @"874A4100056D61D6"
-#define iPad_Overlay_zoneid @"1383034059"
-#define iPad_Overlay_secret @"45521F2F332F5226"
+#define iPad_Overlay_zoneid @"8336743053"
+#define iPad_Overlay_secret @"BEF5D9D4D3E9B3CC"
 #define iPad_Interstitial_zoneid @"0336739057"
 #define iPad_Interstitial_secret @"DA018F2094E8189C"
 #define iPhone_Inline_zoneid @"3327876051"
 #define iPhone_Inline_secret @"5AC993C91380875B"
-#define iPhone_Overlay_zoneid @"8383057050"
-#define iPhone_Overlay_secret @"A2E465BF955D25A5"
+#define iPhone_Overlay_zoneid @"0335449053"
+#define iPhone_Overlay_secret @"9CD3FF68A812A11F"
 #define iPhone_Interstitial_zoneid @"9335783055"
 #define iPhone_Interstitial_secret @"A487B22CA7A032DF"
 

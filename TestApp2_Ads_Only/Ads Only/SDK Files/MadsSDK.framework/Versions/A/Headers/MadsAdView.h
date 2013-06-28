@@ -419,6 +419,16 @@ typedef enum {
 
 @property (retain) NSString*            longitude;
 
+
+/** User location location accurary.
+ 
+ Use this property to set horizontalAccuracy. The value @“” will stop the coordinates of the auto-detection and these coordinates will not be sent to the server. Any other values also will stop the coordinates of auto-detection but these coordinates will be sent to server.
+ 
+ The default value is auto-detected by the locationManager and sent to server.
+ */
+
+@property (retain) NSString*            horizontalAccuracy;
+
 /** Zip/Postal code of user
  
  The default value is nil.
