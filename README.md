@@ -386,6 +386,7 @@ Frameworks:
 	• CoreLocation
 	• CoreTelephony
 	• EventKit
+	• libsqlite3.0.dylib
 	• MediaPlayer
 	• MessageUI
 	• SystemConfiguration 

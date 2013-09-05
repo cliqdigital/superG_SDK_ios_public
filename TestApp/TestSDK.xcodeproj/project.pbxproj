@@ -12,9 +12,7 @@
 		20d1981c273e50f0d65ef7be /* Thumbr_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0589D1165D1BD800819790 /* Thumbr_logo.png */; };
 		2f186ed501cb8ec192a83b1a /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E18A0A15988FD1002487B3 /* SystemConfiguration.framework */; };
 		32a2a69ec9d4e403169463f2 /* background@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBD2019169ACE14006B38FB /* background@2x~ipad.png */; };
-		42ba10e236345d6a05a6f6cb /* Thumbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAE163A170B432500D77F52 /* Thumbr.framework */; };
 		435242b7298f9a592b7edcf8 /* ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0589E0165D1EE400819790 /* ipad.png */; };
-		441da5b99ca71b55a2de0b70 /* Thumbr-iPhone.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB1F73BB1667AC310006F0B6 /* Thumbr-iPhone.bundle */; };
 		46a246882921efccab50e879 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB2BE5C91758DCBE00E9CCE9 /* AudioToolbox.framework */; };
 		4bbe0d1ece65cb10d66bbec4 /* calabash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76ed9e26fcc5c0a0b5b4d28f /* calabash.framework */; };
 		5102cf84de1a9d39547470a8 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0589E6165D1F8D00819790 /* Default-Landscape@2x~ipad.png */; };
@@ -47,16 +45,16 @@
 		BB0589E7165D1F8D00819790 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0589E6165D1F8D00819790 /* Default-Landscape@2x~ipad.png */; };
 		BB0589E9165D1F9100819790 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0589E8165D1F9100819790 /* Default-Portrait~ipad.png */; };
 		BB0589EB165D1F9400819790 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0589EA165D1F9400819790 /* Default-Portrait@2x~ipad.png */; };
-		BB1F73BC1667AC310006F0B6 /* Thumbr-iPad.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB1F73BA1667AC310006F0B6 /* Thumbr-iPad.bundle */; };
-		BB1F73BD1667AC310006F0B6 /* Thumbr-iPhone.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB1F73BB1667AC310006F0B6 /* Thumbr-iPhone.bundle */; };
 		BB2BE5CA1758DCBE00E9CCE9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB2BE5C91758DCBE00E9CCE9 /* AudioToolbox.framework */; };
+		BB33337A17D8CB0800C5FFD5 /* Thumbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB33337917D8CB0800C5FFD5 /* Thumbr.framework */; };
+		BB33337D17D8CB1B00C5FFD5 /* Thumbr-iPad.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB33337B17D8CB1B00C5FFD5 /* Thumbr-iPad.bundle */; };
+		BB33337E17D8CB1B00C5FFD5 /* Thumbr-iPhone.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB33337C17D8CB1B00C5FFD5 /* Thumbr-iPhone.bundle */; };
 		BB7F512E168373CB0080C773 /* ViewController_iPad_landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB7F512C168373CB0080C773 /* ViewController_iPad_landscape.xib */; };
 		BB7F512F168373CB0080C773 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB7F512D168373CB0080C773 /* ViewController_iPhone.xib */; };
 		BB8FAF30165FA49900740205 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8FAF2F165FA49900740205 /* logo.png */; };
 		BB8FAF9E166379B600740205 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8FAF9D166379B600740205 /* Default-568h@2x.png */; };
 		BBAB489C17044E3800F7F71C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8E189F615988DE1002487B3 /* ViewController.m */; };
 		BBAE1639170B430300D77F52 /* MadsSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAE1638170B430300D77F52 /* MadsSDK.framework */; };
-		BBAE163B170B432500D77F52 /* Thumbr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAE163A170B432500D77F52 /* Thumbr.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		BBBD201D169ACE14006B38FB /* background@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BBBD2019169ACE14006B38FB /* background@2x~ipad.png */; };
 		BBD814B61700A2710058DD2B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B01700A2710058DD2B /* AdSupport.framework */; };
 		BBD814B71700A2710058DD2B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B11700A2710058DD2B /* CoreLocation.framework */; };
@@ -68,7 +66,6 @@
 		BBDF9EDF16B2AA6600BA33B2 /* LRResty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDF9EDE16B2AA6600BA33B2 /* LRResty.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		a32cc4138e75229925852194 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B11700A2710058DD2B /* CoreLocation.framework */; };
 		a372b22f592f29bbc5b2735f /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBD814B41700A2710058DD2B /* MediaPlayer.framework */; };
-		a5fbfb9dfe266eb5ef6a78c5 /* Thumbr-iPad.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BB1F73BA1667AC310006F0B6 /* Thumbr-iPad.bundle */; };
 		b801ee6cf60dcdf262be9c40 /* ViewController_iPad_landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB7F512C168373CB0080C773 /* ViewController_iPad_landscape.xib */; };
 		b8af7b6a22fb13b8fb129119 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0589EA165D1F9400819790 /* Default-Portrait@2x~ipad.png */; };
 		c153789f1875c42e7ba9c328 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BB0589D9165D1E6800819790 /* Default.png */; };
@@ -110,9 +107,10 @@
 		BB0589E6165D1F8D00819790 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		BB0589E8165D1F9100819790 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		BB0589EA165D1F9400819790 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
-		BB1F73BA1667AC310006F0B6 /* Thumbr-iPad.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "Thumbr-iPad.bundle"; path = "../SDK/output/Debug-universal/Thumbr-iPad.bundle"; sourceTree = "<group>"; };
-		BB1F73BB1667AC310006F0B6 /* Thumbr-iPhone.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "Thumbr-iPhone.bundle"; path = "../SDK/output/Debug-universal/Thumbr-iPhone.bundle"; sourceTree = "<group>"; };
 		BB2BE5C91758DCBE00E9CCE9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		BB33337917D8CB0800C5FFD5 /* Thumbr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Thumbr.framework; sourceTree = "<group>"; };
+		BB33337B17D8CB1B00C5FFD5 /* Thumbr-iPad.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Thumbr-iPad.bundle"; sourceTree = "<group>"; };
+		BB33337C17D8CB1B00C5FFD5 /* Thumbr-iPhone.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Thumbr-iPhone.bundle"; sourceTree = "<group>"; };
 		BB7F512C168373CB0080C773 /* ViewController_iPad_landscape.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPad_landscape.xib; sourceTree = "<group>"; };
 		BB7F512D168373CB0080C773 /* ViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController_iPhone.xib; sourceTree = "<group>"; };
 		BB8F0FDF16B6CA09003802B5 /* scoreExamples.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scoreExamples.txt; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 		BBA348D117452F1D0057D8D0 /* libTestStudioCommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestStudioCommon.a; sourceTree = "<group>"; };
 		BBA348D217452F1D0057D8D0 /* libTestStudioExtension.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestStudioExtension.a; sourceTree = "<group>"; };
 		BBAE1638170B430300D77F52 /* MadsSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MadsSDK.framework; sourceTree = "<group>"; };
-		BBAE163A170B432500D77F52 /* Thumbr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Thumbr.framework; path = "../SDK/output/Debug-universal/Thumbr.framework"; sourceTree = "<group>"; };
 		BBBCCD3117687E350065E0C4 /* TestSDK-cal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestSDK-cal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBD2019169ACE14006B38FB /* background@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x~ipad.png"; sourceTree = "<group>"; };
 		BBD814B01700A2710058DD2B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -156,7 +153,7 @@
 				BBD9E7171663BE9F0096E648 /* libAppsFlyerLib.a in Frameworks */,
 				BBDF9EDF16B2AA6600BA33B2 /* LRResty.framework in Frameworks */,
 				BBAE1639170B430300D77F52 /* MadsSDK.framework in Frameworks */,
-				BBAE163B170B432500D77F52 /* Thumbr.framework in Frameworks */,
+				BB33337A17D8CB0800C5FFD5 /* Thumbr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,7 +176,6 @@
 				982559b669b4d1f6548d7bd6 /* libAppsFlyerLib.a in Frameworks */,
 				096f3235d514dc3fe5e39995 /* LRResty.framework in Frameworks */,
 				e54fee5233af588e1c40cf0d /* MadsSDK.framework in Frameworks */,
-				42ba10e236345d6a05a6f6cb /* Thumbr.framework in Frameworks */,
 				4bbe0d1ece65cb10d66bbec4 /* calabash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,8 +205,8 @@
 				BBD814B31700A2710058DD2B /* EventKit.framework */,
 				BBD814B41700A2710058DD2B /* MediaPlayer.framework */,
 				BBD814B51700A2710058DD2B /* MessageUI.framework */,
-				BB1F73BA1667AC310006F0B6 /* Thumbr-iPad.bundle */,
-				BB1F73BB1667AC310006F0B6 /* Thumbr-iPhone.bundle */,
+				BB33337B17D8CB1B00C5FFD5 /* Thumbr-iPad.bundle */,
+				BB33337C17D8CB1B00C5FFD5 /* Thumbr-iPhone.bundle */,
 				BBD9E7161663BE9F0096E648 /* libAppsFlyerLib.a */,
 				BB0589EA165D1F9400819790 /* Default-Portrait@2x~ipad.png */,
 				BB8FAF9D166379B600740205 /* Default-568h@2x.png */,
@@ -246,7 +242,7 @@
 		B8E189E215988DE1002487B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BBAE163A170B432500D77F52 /* Thumbr.framework */,
+				BB33337917D8CB0800C5FFD5 /* Thumbr.framework */,
 				BBAE1638170B430300D77F52 /* MadsSDK.framework */,
 				BBDF9EDE16B2AA6600BA33B2 /* LRResty.framework */,
 				B8E18A0A15988FD1002487B3 /* SystemConfiguration.framework */,
@@ -363,8 +359,6 @@
 				b8af7b6a22fb13b8fb129119 /* Default-Portrait@2x~ipad.png in Resources */,
 				7a692aa6b50e2cc7a2d1b743 /* logo.png in Resources */,
 				96f4cfe2a347650b54a0fd46 /* Default-568h@2x.png in Resources */,
-				a5fbfb9dfe266eb5ef6a78c5 /* Thumbr-iPad.bundle in Resources */,
-				441da5b99ca71b55a2de0b70 /* Thumbr-iPhone.bundle in Resources */,
 				b801ee6cf60dcdf262be9c40 /* ViewController_iPad_landscape.xib in Resources */,
 				ddeea714e46fa1f72935ee0b /* ViewController_iPhone.xib in Resources */,
 				32a2a69ec9d4e403169463f2 /* background@2x~ipad.png in Resources */,
@@ -388,11 +382,11 @@
 				BB0589EB165D1F9400819790 /* Default-Portrait@2x~ipad.png in Resources */,
 				BB8FAF30165FA49900740205 /* logo.png in Resources */,
 				BB8FAF9E166379B600740205 /* Default-568h@2x.png in Resources */,
-				BB1F73BC1667AC310006F0B6 /* Thumbr-iPad.bundle in Resources */,
-				BB1F73BD1667AC310006F0B6 /* Thumbr-iPhone.bundle in Resources */,
 				BB7F512E168373CB0080C773 /* ViewController_iPad_landscape.xib in Resources */,
 				BB7F512F168373CB0080C773 /* ViewController_iPhone.xib in Resources */,
 				BBBD201D169ACE14006B38FB /* background@2x~ipad.png in Resources */,
+				BB33337D17D8CB1B00C5FFD5 /* Thumbr-iPad.bundle in Resources */,
+				BB33337E17D8CB1B00C5FFD5 /* Thumbr-iPhone.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
