@@ -4,28 +4,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Thumbr/Thumbr.h"
+#import "SuperG/SuperG.h"
+#import "SuperG/PUSH.h"
+#import "SuperG/EVA.h"
 #import "AppDelegate.h"
 
 @class ViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, ThumbrSDKDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, SuperGSDKDelegate>
 
-@property (retain, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIWindow *window;
 
-@property (retain, nonatomic) ViewController *viewController;
-@property(nonatomic,retain) NSDictionary *adSettings;
+@property (strong, nonatomic) ViewController *viewController;
 
-FOUNDATION_EXPORT NSString *const sid;
-FOUNDATION_EXPORT NSString *const client_id;
-FOUNDATION_EXPORT NSString *const country;
-FOUNDATION_EXPORT NSString *const locale;
-FOUNDATION_EXPORT NSString *const appsflyerNotifyAppID;
-FOUNDATION_EXPORT NSString *const registerUrl;
 
-+(NSDictionary*) getAdSettings;
-
-- (void) initilizeSDK;
-- (void) animateAdIn:(id)sender;
-- (void) animateAdOut:(id)sender;
 @end

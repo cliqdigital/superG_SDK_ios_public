@@ -5,20 +5,31 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "SuperG/SuperG.h"
+#import "SuperG/EVA.h"
+#import "ACParallaxView.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <ACParallaxViewDelegate>
 
-@property (retain, nonatomic) IBOutlet NSArray *values;
-@property (retain, nonatomic) IBOutlet UIView *thumbrTView;
-- (IBAction)AdOverlay:(UIButton *)sender;
-- (IBAction)AdInline:(UIButton *)sender;
-- (IBAction)AdInterstitial:(UIButton *)sender;
-- (IBAction)Reset:(id)sender;
+@property (strong, nonatomic) IBOutlet NSArray *values;
+@property (strong, nonatomic) IBOutlet UIView *thumbrTView;
 
-@property (retain, nonatomic) IBOutlet UIView *Banner;
 
-@property (retain, nonatomic) IBOutlet UIButton *inlinebutton;
+@property (strong, nonatomic) IBOutlet ACParallaxView *parallaxView;
 
-@property (retain, nonatomic) IBOutlet UIView *adView;
 
+- (IBAction)achievement:(UIButton *)sender;
+- (IBAction)click:(UIButton *)sender;
+- (IBAction)purchase:(UIButton *)sender;
+- (IBAction)start_level:(UIButton *)sender;
+- (IBAction)finish_level:(UIButton *)sender;
+- (IBAction)up_sell:(UIButton *)sender;
+
+@property (strong, nonatomic) IBOutlet UIView *Banner;
+
+@property (strong, nonatomic) IBOutlet UIButton *inlinebutton;
+
+@property (strong, nonatomic) IBOutlet UIView *bg1;
+@property (strong, nonatomic) IBOutlet UIView *bg2;
+@property (strong, nonatomic) IBOutlet UIView *bg3;
 @end
