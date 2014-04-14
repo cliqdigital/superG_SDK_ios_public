@@ -236,32 +236,32 @@ If you want to log custom events, add this line to your imports:
 
 These custom event methods are available:
 
-	+ (void) click:(NSString*)clickedItem;
-	Example: 
+	+ (void) click:(NSString*)clicked_item;
+		Example: 
     [EVA click:@"TestButton"];
 		
-	+ (void) purchase:(NSString*)currency :(NSString*)payment_method :(NSString*)price :(NSString*)purchasedItem;
-	Example: 
+	+(void)purchase: (NSString*)purchased_item WithCurrency: (NSString*)currency PaymentMethod:(NSString*)payment_method AndPrice:(NSString*)price
+		Example: 
     [EVA purchase:@"coins" WithCurrency:@"EUR" PaymentMethod:@"in-app" AndPrice:@"0.79"];
 		
-	+ (void) achievementEarned:(NSString*)achievementName;
-	Example: 
+	+ (void) achievementEarned:(NSString*)achievement_name
+		Example: 
 	[EVA achievementEarned:@"Found gold"];
 	
-	+ (void) startLevel:(NSString*)game_mode :(NSString*)level :(NSString*)score_type :(NSString*)score_value;
-	Example: 
+	+ (void) start_level:(NSString*)level inMode:(NSString*)game_mode withScoreType: (NSString*)score_type andScoreValue: (NSString*)score_value
+		Example: 
     [EVA start_level:@"1" inMode:@"attach_mode" withScoreType:@"win" andScoreValue:@"1"];
     
-	+ (void) finish_level:(NSString*)game_mode :(NSString*)level :(NSString*)score_type :(NSString*)score_value ;
-	Example: 
+	finish_level:(NSString*)level inMode:(NSString*)game_mode withScoreType: (NSString*)score_type andScoreValue: (NSString*)score_value
+		Example: 
     [EVA finish_level:@"100" inMode:@"attack mode" withScoreType:@"win" andScoreValue:@"1" ];
     
-	+ (void) upSell:(NSString*)currency :(NSString*)payment_method;
-	Example: 
+	+(void)upSell:(NSString*)currency PaymentMethod:(NSString*)payment_method
+		Example: 
     [EVA upSell:@"EUR" PaymentMethod:@"in-app"];
 
-	+(void)generic: (NSString*)generic_key GenericValue: (NSString*)generic_value;
-	Example: 
+	+(void)generic: (NSString*)generic_key GenericValue: (NSString*)generic_value
+		Example: 
     [EVA generic:@"myEvent" GenericValue:@"it fired!"];	
 
  
